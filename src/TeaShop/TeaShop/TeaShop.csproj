@@ -7,4 +7,9 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <Folder Include="Domain\InventoryQuery\" />
+      <Folder Include="Domain\Payment\" />
+    </ItemGroup>
+
 </Project>
