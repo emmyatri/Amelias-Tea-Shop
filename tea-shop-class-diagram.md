@@ -2,7 +2,7 @@
 
 ```mermaid
 classDiagram
-    direction TB
+    direction LR
 
 %% ===== Domain : Inventory =====
 
