@@ -1,6 +1,11 @@
 ﻿namespace TeaShop.Domain.InventoryQuery;
 
-public class SortDirection
+
+
+public enum SortDirection
 {
+    
+    Ascending,
+    Descending
     
 }
