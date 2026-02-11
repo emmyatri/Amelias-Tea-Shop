@@ -9,8 +9,13 @@ public class InventoryRepository
 {
     private readonly List<InventoryItem> _items;
 
+    
+    /// <summary>
+    /// List of teas and relative prices were generated with the help of Claude Opus 4.5
+    /// </summary>
     public InventoryRepository()
     {
+        
         _items = new List<InventoryItem>
         {
             new(Guid.NewGuid(), "Da Hong Pao (Big Red Robe) – Wuyi Rock Oolong", 15.85m, 42, new StarRating(3)),
@@ -49,7 +54,7 @@ public class InventoryRepository
 
             new(Guid.NewGuid(), "Wuyi Rou Gui (Cinnamon Rock Tea) - Oolong", 19.99m, 97, new StarRating(2)),
 
-            new(Guid.NewGuid(), "Phoenix Dan Cong Ya Shi (Duck Sh*t) - Oolong", 124.99m, 0, new StarRating(5)),
+            new(Guid.NewGuid(), "Phoenix Dan Cong Ya Shi (Duck Poop) - Oolong", 124.99m, 0, new StarRating(5)),
 
             new(Guid.NewGuid(), "Dian Hong (Yunnan Golden Tips) - Black Tea", 85.99m, 2, new StarRating(4)),
 
