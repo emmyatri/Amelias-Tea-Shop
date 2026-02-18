@@ -11,10 +11,13 @@ public class MinStarRatingFilterDecorator : InventoryQueryDecoratorBase
         _searchStarRatingMin = searchStarRatingMin;
         }
 
+    
     public override List<QueriedInventoryItem> Execute()
     {
+        
         var minStarRatingResults = _inner.Execute();
         return minStarRatingResults.Where(item =>
             (item.Item.StarRating.CompareTo(_searchStarRatingMin) >= 0)).ToList();
+        
     }
 }
