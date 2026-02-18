@@ -1,6 +1,6 @@
 ﻿namespace TeaShop.Domain.Payment;
 
-public class IPaymentStrategy
+public interface IPaymentStrategy
 {
-    
+    void Checkout();
 }
