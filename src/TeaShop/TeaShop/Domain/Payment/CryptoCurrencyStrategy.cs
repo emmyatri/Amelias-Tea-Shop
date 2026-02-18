@@ -8,8 +8,8 @@ public class CryptoCurrencyStrategy : PaymentStrategyBase
     {
         _walletNumber = walletNumber;
     }
-    
+
     public override void Checkout()
-    {}
-    
+    {
+    }
 }

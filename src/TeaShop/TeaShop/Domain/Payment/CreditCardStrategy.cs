@@ -10,6 +10,6 @@ public class CreditCardStrategy : PaymentStrategyBase
     }
 
     public override void Checkout()
-    { }
-    
+    {
+    }
 }
