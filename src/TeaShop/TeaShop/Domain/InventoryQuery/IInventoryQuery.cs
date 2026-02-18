@@ -3,5 +3,4 @@
 public interface IInventoryQuery
 {
     List<QueriedInventoryItem> Execute();
-
 }

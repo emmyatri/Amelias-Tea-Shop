@@ -10,7 +10,7 @@ public class AllInventoryQuery(InventoryRepository stock) : IInventoryQuery
     public List<QueriedInventoryItem> Execute()
     {
         return
-        _stock.Items.Select((item, index) => 
-            new QueriedInventoryItem(item, index + 1)).ToList();
+            _stock.Items.Select((item, index) =>
+                new QueriedInventoryItem(item, index + 1)).ToList();
     }
 }

@@ -5,7 +5,8 @@ public class PriceRangeFilterDecorator : InventoryQueryDecoratorBase
     private readonly decimal _searchPriceMin;
     private readonly decimal _searchPriceMax;
 
-    public PriceRangeFilterDecorator(IInventoryQuery inner, decimal searchPriceMin, decimal searchPriceMax) : base(inner)
+    public PriceRangeFilterDecorator(IInventoryQuery inner, decimal searchPriceMin, decimal searchPriceMax) :
+        base(inner)
     {
         _searchPriceMin = searchPriceMin;
         _searchPriceMax = searchPriceMax;
@@ -17,6 +18,4 @@ public class PriceRangeFilterDecorator : InventoryQueryDecoratorBase
         return priceRangeResults.Where(item =>
             (item.Item.Price >= _searchPriceMin && item.Item.Price <= _searchPriceMax)).ToList();
     }
-    
-    
 }

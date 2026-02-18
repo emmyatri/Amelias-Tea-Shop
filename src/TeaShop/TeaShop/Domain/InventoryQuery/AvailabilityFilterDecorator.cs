@@ -12,7 +12,7 @@ public class AvailabilityFilterDecorator : InventoryQueryDecoratorBase
     public override List<QueriedInventoryItem> Execute()
     {
         var availabilityResults = _inner.Execute();
-        return availabilityResults.Where(item => 
-            (item.Item.Quantity >0) == _isAvailable).ToList();
+        return availabilityResults.Where(item =>
+            (item.Item.Quantity > 0) == _isAvailable).ToList();
     }
 }
