@@ -1,16 +1,9 @@
 ﻿namespace TeaShop.Domain.InventoryQuery;
 
-public class PriceRangeFilterDecorator : InventoryQueryDecoratorBase
+public class PriceRangeFilterDecorator(IInventoryQuery inner, decimal searchPriceMin, decimal searchPriceMax) : InventoryQueryDecoratorBase (inner)
 {
-    private readonly decimal _searchPriceMin;
-    private readonly decimal _searchPriceMax;
-
-    public PriceRangeFilterDecorator(IInventoryQuery inner, decimal searchPriceMin, decimal searchPriceMax) :
-        base(inner)
-    {
-        _searchPriceMin = searchPriceMin;
-        _searchPriceMax = searchPriceMax;
-    }
+    private readonly decimal _searchPriceMin =  searchPriceMin;
+    private readonly decimal _searchPriceMax  = searchPriceMax;
 
     public override List<QueriedInventoryItem> Execute()
     {

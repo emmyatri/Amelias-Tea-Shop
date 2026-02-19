@@ -2,17 +2,10 @@
 
 namespace TeaShop.Domain.InventoryQuery;
 
-public class StarRatingRangeFilterDecorator : InventoryQueryDecoratorBase
+public class StarRatingRangeFilterDecorator(IInventoryQuery inner, StarRating searchRangeMin, StarRating searchRangeMax) : InventoryQueryDecoratorBase (inner)
 {
-    private readonly StarRating _searchRangeMin;
-    private readonly StarRating _searchRangeMax;
-
-    public StarRatingRangeFilterDecorator(IInventoryQuery inner, StarRating searchRangeMin, StarRating searchRangeMax)
-        : base(inner)
-    {
-        _searchRangeMin = searchRangeMin;
-        _searchRangeMax = searchRangeMax;
-    }
+    private readonly StarRating _searchRangeMin = searchRangeMin;
+    private readonly StarRating _searchRangeMax = searchRangeMax;
 
     public override List<QueriedInventoryItem> Execute()
     {

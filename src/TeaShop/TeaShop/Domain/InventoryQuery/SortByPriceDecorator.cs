@@ -1,15 +1,9 @@
 ﻿namespace TeaShop.Domain.InventoryQuery;
 
-public class SortByPriceDecorator : InventoryQueryDecoratorBase
+public class SortByPriceDecorator(IInventoryQuery inner, SortDirection priceDirection): InventoryQueryDecoratorBase (inner)
 {
-    private readonly SortDirection _priceDirection;
-
-
-    public SortByPriceDecorator(IInventoryQuery inner, SortDirection priceDirection) : base(inner)
-    {
-        _priceDirection = priceDirection;
-    }
-
+    private readonly SortDirection _priceDirection = priceDirection;
+    
     public override List<QueriedInventoryItem> Execute()
 
     {

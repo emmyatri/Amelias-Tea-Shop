@@ -1,15 +1,9 @@
 ﻿namespace TeaShop.Domain.Payment;
 
-public class CryptoCurrencyStrategy : PaymentStrategyBase
+public class CryptoCurrencyStrategy(decimal price, string walletNumber) : PaymentStrategyBase (price)
 {
-    private readonly string _walletNumber;
+    private readonly string _walletNumber = walletNumber;
 
-    public CryptoCurrencyStrategy(decimal price, string walletNumber) : base(price)
-    {
-        _walletNumber = walletNumber;
-    }
-
-    public override void Checkout()
-    {
-    }
+    public override void Checkout() { }
+    
 }

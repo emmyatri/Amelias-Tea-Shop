@@ -1,14 +1,8 @@
 ﻿namespace TeaShop.Domain.InventoryQuery;
 
-public abstract class InventoryQueryDecoratorBase : IInventoryQuery
+public abstract class InventoryQueryDecoratorBase(IInventoryQuery inner) : IInventoryQuery 
 {
-    protected readonly IInventoryQuery _inner;
-
-
-    protected InventoryQueryDecoratorBase(IInventoryQuery inner)
-    {
-        _inner = inner;
-    }
+    protected readonly IInventoryQuery _inner = inner;
 
 
     public abstract List<QueriedInventoryItem> Execute();

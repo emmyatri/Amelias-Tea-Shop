@@ -1,6 +1,15 @@
-﻿namespace TeaShop.UserInterface;
+﻿using TeaShop.Domain.Payment;
 
-public class ApplePayPaymentBuilder
+namespace TeaShop.UserInterface;
+
+public class ApplePayPaymentBuilder(TextReader input, TextWriter output) : IPaymentBuilder
 {
-    
+    private readonly TextReader _input = input;
+    private readonly TextWriter _output = output;
+
+
+    public IPaymentStrategy Build()
+    {
+        //return null;
+    };
 }

@@ -1,13 +1,8 @@
 ﻿namespace TeaShop.Domain.InventoryQuery;
 
-public class NameContainsFilterDecorator : InventoryQueryDecoratorBase
+public class NameContainsFilterDecorator(IInventoryQuery inner, string searchText): InventoryQueryDecoratorBase (inner)
 {
-    private readonly string _searchText;
-
-    public NameContainsFilterDecorator(IInventoryQuery inner, string searchText) : base(inner)
-    {
-        _searchText = searchText;
-    }
+    private readonly string _searchText = searchText;
 
     public override List<QueriedInventoryItem> Execute()
     {

@@ -1,13 +1,9 @@
 ﻿namespace TeaShop.Domain.InventoryQuery;
 
-public class AvailabilityFilterDecorator : InventoryQueryDecoratorBase
+public class AvailabilityFilterDecorator(IInventoryQuery inner, bool isAvailable) : InventoryQueryDecoratorBase (inner)
 {
-    private readonly bool _isAvailable;
-
-    public AvailabilityFilterDecorator(IInventoryQuery inner, bool isAvailable) : base(inner)
-    {
-        _isAvailable = isAvailable;
-    }
+    private readonly bool _isAvailable = isAvailable;
+    
 
     public override List<QueriedInventoryItem> Execute()
     {

@@ -1,15 +1,9 @@
 ﻿namespace TeaShop.Domain.Payment;
 
-public class ApplePayStrategy : PaymentStrategyBase
+public class ApplePayStrategy(decimal price, string phoneNumber) : PaymentStrategyBase (price)
 {
-    private readonly string _phoneNumber;
+    private readonly string _phoneNumber = phoneNumber;
 
-    public ApplePayStrategy(decimal price, string phoneNumber) : base(price)
-    {
-        _phoneNumber = phoneNumber;
-    }
-
-    public override void Checkout()
-    {
-    }
+    public override void Checkout() { }
+    
 }

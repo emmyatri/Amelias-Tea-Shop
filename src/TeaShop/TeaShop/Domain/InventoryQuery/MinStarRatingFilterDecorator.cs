@@ -2,15 +2,10 @@
 
 namespace TeaShop.Domain.InventoryQuery;
 
-public class MinStarRatingFilterDecorator : InventoryQueryDecoratorBase
+public class MinStarRatingFilterDecorator(IInventoryQuery inner, StarRating searchStarRatingMin) : InventoryQueryDecoratorBase (inner)
 {
-    private readonly StarRating _searchStarRatingMin;
-
-    public MinStarRatingFilterDecorator(IInventoryQuery inner, StarRating searchStarRatingMin) : base(inner)
-    {
-        _searchStarRatingMin = searchStarRatingMin;
-    }
-
+    private readonly StarRating _searchStarRatingMin = searchStarRatingMin;
+ 
 
     public override List<QueriedInventoryItem> Execute()
     {

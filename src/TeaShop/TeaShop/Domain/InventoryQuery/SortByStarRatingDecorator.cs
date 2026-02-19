@@ -1,13 +1,9 @@
 ﻿namespace TeaShop.Domain.InventoryQuery;
 
-public class SortByStarRatingDecorator : InventoryQueryDecoratorBase
+public class SortByStarRatingDecorator(IInventoryQuery inner, SortDirection starDirection) : InventoryQueryDecoratorBase (inner)
 {
-    private readonly SortDirection _starDirection;
-
-    public SortByStarRatingDecorator(IInventoryQuery inner, SortDirection starDirection) : base(inner)
-    {
-        _starDirection = starDirection;
-    }
+    private readonly SortDirection _starDirection = starDirection;
+    
 
     public override List<QueriedInventoryItem> Execute()
 
