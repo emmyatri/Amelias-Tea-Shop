@@ -2,8 +2,7 @@
 
 namespace TeaShop.Domain.InventoryQuery;
 
-public class QueriedInventoryItem(InventoryItem item, int index)
+public class QueriedInventoryItem(InventoryItem item)
 {
     public InventoryItem Item { get; } = item;
-    public int Index { get; } = index;
 }
