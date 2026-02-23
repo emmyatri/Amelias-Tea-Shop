@@ -1,8 +1,10 @@
 ﻿using TeaShop.Domain.Payment;
 
-namespace TeaShop.UserInterface;
+namespace TeaShop.UserInterface.PaymentBuilder;
 
 public interface IPaymentBuilder
 {
-    IPaymentStrategy Build();
+    string Name { get; }
+    IPaymentStrategy Build(PurchaseDetails purchase);
+    
 }
