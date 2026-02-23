@@ -2,5 +2,5 @@
 
 public interface IInventoryQuery
 {
-    List<QueriedInventoryItem> Execute();
+    IReadOnlyList<QueriedInventoryItem> Execute();
 }
