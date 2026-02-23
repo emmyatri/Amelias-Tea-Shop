@@ -1,9 +1,12 @@
 ﻿namespace TeaShop.Domain.Payment;
 
-public class ApplePayStrategy(decimal price, string phoneNumber) : PaymentStrategyBase (price)
+public class ApplePayStrategy(PurchaseDetails purchase, string phoneNumber) : PaymentStrategyBase (purchase)
 {
     private readonly string _phoneNumber = phoneNumber;
 
-    public override void Checkout() { }
-    
+    public override string Checkout()
+    {
+        return FormatConfirmation($"ApplePay associated with phone number ending in [{_phoneNumber[^4..]}]");
+    }
+
 }
