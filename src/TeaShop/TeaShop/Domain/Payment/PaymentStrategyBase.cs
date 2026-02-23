@@ -1,5 +1,10 @@
 ﻿namespace TeaShop.Domain.Payment;
 
+
+/// <summary>
+/// Base class for all payment strategies. Holds shared purchase
+/// details and provides a common confirmation message format.
+/// </summary>
 public abstract class PaymentStrategyBase (PurchaseDetails purchase) : IPaymentStrategy
 {
 
@@ -7,6 +12,11 @@ public abstract class PaymentStrategyBase (PurchaseDetails purchase) : IPaymentS
     
     public abstract string Checkout();
 
+    
+    /// <summary>
+    /// Builds a standardized checkout confirmation message
+    /// using the provided payment-specific detail.
+    /// </summary>
     protected string FormatConfirmation(string paymentDetail)
     {
         return $"*** Total Price: {_purchase.Price:C} ***\n" +

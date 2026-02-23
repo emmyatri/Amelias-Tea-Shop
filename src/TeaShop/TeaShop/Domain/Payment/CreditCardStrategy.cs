@@ -1,5 +1,9 @@
 ﻿namespace TeaShop.Domain.Payment;
 
+
+/// <summary>
+/// Processes a simulated Credit Card payment
+/// </summary>
 public class CreditCardStrategy(PurchaseDetails purchase, string creditCardNumber) : PaymentStrategyBase (purchase)
 {
     private readonly string _creditCardNumber = creditCardNumber;
