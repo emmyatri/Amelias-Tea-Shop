@@ -1,21 +1,19 @@
 ﻿namespace TeaShop.Domain.Inventory;
 
-
 /// <summary>
-/// Stores and manages the tea inventory. Provides read-only access
-/// and controlled quantity updates.
+///     Stores and manages the tea inventory. Provides read-only access
+///     and controlled quantity updates.
 /// </summary>
 public class InventoryRepository
 {
     private readonly List<InventoryItem> _items;
 
-    
+
     /// <summary>
-    /// List of teas and relative prices were generated with the help of Claude Opus 4.5
+    ///     List of teas and relative prices were generated with the help of Claude Opus 4.5
     /// </summary>
     public InventoryRepository()
     {
-        
         _items = new List<InventoryItem>
         {
             new(Guid.NewGuid(), "Da Hong Pao (Big Red Robe) – Wuyi Rock Oolong", 15.85m, 42, new StarRating(3)),
@@ -44,7 +42,8 @@ public class InventoryRepository
 
             new(Guid.NewGuid(), "Yunnan - Green Tea", 21.99m, 7, new StarRating(2)),
 
-            new(Guid.NewGuid(), "Huangshan Mao Feng (Yellow Mountain Fur Peak) - Green Tea", 14.99m, 144, new StarRating(5)),
+            new(Guid.NewGuid(), "Huangshan Mao Feng (Yellow Mountain Fur Peak) - Green Tea", 14.99m, 144,
+                new StarRating(5)),
 
             new(Guid.NewGuid(), "Tai Ping Hou Kui (Monkey King Green) - Green Tea", 21.99m, 27, new StarRating(4)),
 
@@ -64,28 +63,25 @@ public class InventoryRepository
 
             new(Guid.NewGuid(), "Mengding Huangya – Yellow Tea", 63.99m, 146, new StarRating(2)),
 
-            new(Guid.NewGuid(), "Anji Bai Cha (White-Leaf) - Green Tea", 32.99m, 55, new StarRating(4)),
-
+            new(Guid.NewGuid(), "Anji Bai Cha (White-Leaf) - Green Tea", 32.99m, 55, new StarRating(4))
         };
     }
 
     /// <summary>
-    /// Returns a read-only view of the inventory.
+    ///     Returns a read-only view of the inventory.
     /// </summary>
     public IReadOnlyList<InventoryItem> Items => _items.AsReadOnly();
 
-    
+
     /// <summary>
-    /// Reduces the quantity of the specified item after purchase.
+    ///     Reduces the quantity of the specified item after purchase.
     /// </summary>
     /// <exception cref="InvalidOperationException">
-    /// Thrown when the purchase amount exceeds available stock.
+    ///     Thrown when the purchase amount exceeds available stock.
     /// </exception>
     public void UpdateQuantity(Guid id, int quantityPurchased)
     {
         var item = _items.First(i => i.Id == id);
         item.ReduceQuantity(quantityPurchased);
-        
     }
-    
 }
