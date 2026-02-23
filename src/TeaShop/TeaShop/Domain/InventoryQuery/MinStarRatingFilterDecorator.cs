@@ -8,7 +8,7 @@ public class MinStarRatingFilterDecorator(IInventoryQuery inner, StarRating sear
     private readonly StarRating _searchStarRatingMin = searchStarRatingMin;
 
 
-    public override List<QueriedInventoryItem> Execute()
+    public override IReadOnlyList<QueriedInventoryItem> Execute()
     {
         var minStarRatingResults = _inner.Execute();
         return minStarRatingResults.Where(item =>

@@ -1,5 +1,7 @@
-﻿namespace TeaShop.UserInterface;
+﻿using TeaShop.Domain.InventoryQuery;
 
-public class InventoryQueryOutput
+namespace TeaShop.UserInterface.QueryBuilder;
+
+public class InventoryQueryOutput(List<QueriedInventoryItem> items, List<string> appliedFilter)
 {
 }

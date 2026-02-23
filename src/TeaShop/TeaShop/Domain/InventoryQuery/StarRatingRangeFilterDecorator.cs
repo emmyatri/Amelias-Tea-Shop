@@ -8,7 +8,7 @@ public class StarRatingRangeFilterDecorator(IInventoryQuery inner, StarRating se
     private readonly StarRating _searchRangeMax = searchRangeMax;
     private readonly StarRating _searchRangeMin = searchRangeMin;
 
-    public override List<QueriedInventoryItem> Execute()
+    public override IReadOnlyList<QueriedInventoryItem> Execute()
     {
         var starRangeResults = _inner.Execute();
         return starRangeResults.Where(item =>

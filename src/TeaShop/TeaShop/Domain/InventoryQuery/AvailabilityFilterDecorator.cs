@@ -5,7 +5,7 @@ public class AvailabilityFilterDecorator(IInventoryQuery inner, bool isAvailable
     private readonly bool _isAvailable = isAvailable;
 
 
-    public override List<QueriedInventoryItem> Execute()
+    public override IReadOnlyList<QueriedInventoryItem> Execute()
     {
         var availabilityResults = _inner.Execute();
         return availabilityResults.Where(item =>

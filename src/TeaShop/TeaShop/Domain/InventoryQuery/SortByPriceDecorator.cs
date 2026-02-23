@@ -5,7 +5,7 @@ public class SortByPriceDecorator(IInventoryQuery inner, SortDirection priceDire
 {
     private readonly SortDirection _priceDirection = priceDirection;
 
-    public override List<QueriedInventoryItem> Execute()
+    public override IReadOnlyList<QueriedInventoryItem> Execute()
 
     {
         var searchDirectionResults = _inner.Execute();

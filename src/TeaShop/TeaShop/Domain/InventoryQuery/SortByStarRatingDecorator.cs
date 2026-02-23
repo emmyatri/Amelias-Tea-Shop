@@ -6,7 +6,7 @@ public class SortByStarRatingDecorator(IInventoryQuery inner, SortDirection star
     private readonly SortDirection _starDirection = starDirection;
 
 
-    public override List<QueriedInventoryItem> Execute()
+    public override IReadOnlyList<QueriedInventoryItem> Execute()
 
     {
         var searchDirectionResults = _inner.Execute();

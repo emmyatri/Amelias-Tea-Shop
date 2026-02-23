@@ -4,7 +4,7 @@ public class NameContainsFilterDecorator(IInventoryQuery inner, string searchTex
 {
     private readonly string _searchText = searchText;
 
-    public override List<QueriedInventoryItem> Execute()
+    public override IReadOnlyList<QueriedInventoryItem> Execute()
     {
         var nameContainsResults = _inner.Execute();
 

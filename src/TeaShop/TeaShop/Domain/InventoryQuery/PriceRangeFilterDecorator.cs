@@ -6,7 +6,7 @@ public class PriceRangeFilterDecorator(IInventoryQuery inner, decimal searchPric
     private readonly decimal _searchPriceMax = searchPriceMax;
     private readonly decimal _searchPriceMin = searchPriceMin;
 
-    public override List<QueriedInventoryItem> Execute()
+    public override IReadOnlyList<QueriedInventoryItem> Execute()
     {
         var priceRangeResults = _inner.Execute();
         return priceRangeResults.Where(item =>

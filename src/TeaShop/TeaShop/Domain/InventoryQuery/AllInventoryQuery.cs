@@ -6,7 +6,7 @@ public class AllInventoryQuery(InventoryRepository stock) : IInventoryQuery
 {
     private readonly InventoryRepository _stock = stock;
 
-    public List<QueriedInventoryItem> Execute()
+    public IReadOnlyList<QueriedInventoryItem> Execute()
     {
         return
             _stock.Items.Select(item =>
