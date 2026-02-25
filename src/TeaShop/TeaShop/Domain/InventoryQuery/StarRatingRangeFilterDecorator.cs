@@ -17,11 +17,11 @@ public sealed class StarRatingRangeFilterDecorator(IInventoryQuery inner, StarRa
     protected override FilterDescription? AppliedDescription
         => new("Filter", $"Star rating between {_searchRangeMin.StarValue} and {_searchRangeMax.StarValue}");
 
-    public override IReadOnlyList<QueriedInventoryItem> Execute()
+    protected override IReadOnlyList<QueriedInventoryItem> Decorate(IReadOnlyList<QueriedInventoryItem> items)
     {
-        var starRangeResults = _inner.Execute();
-        return starRangeResults.Where(item =>
+        return items.Where(item =>
             item.Item.StarRating.CompareTo(_searchRangeMin) >= 0 &&
             item.Item.StarRating.CompareTo(_searchRangeMax) <= 0).ToList();
+
     }
 }

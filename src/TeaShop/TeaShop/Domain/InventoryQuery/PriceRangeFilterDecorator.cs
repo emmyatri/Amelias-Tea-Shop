@@ -11,11 +11,10 @@ public sealed class PriceRangeFilterDecorator(IInventoryQuery inner, decimal sea
 
     protected override FilterDescription? AppliedDescription
         => new("Filter", $"Price range between {_searchPriceMin:C} and {_searchPriceMax:C}");
-    
-    public override IReadOnlyList<QueriedInventoryItem> Execute()
+
+    protected override IReadOnlyList<QueriedInventoryItem> Decorate(IReadOnlyList<QueriedInventoryItem> items)
     {
-        var priceRangeResults = _inner.Execute();
-        return priceRangeResults.Where(item =>
+        return items.Where(item =>
             item.Item.Price >= _searchPriceMin && item.Item.Price <= _searchPriceMax).ToList();
     }
 }

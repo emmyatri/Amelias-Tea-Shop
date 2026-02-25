@@ -11,16 +11,11 @@ public sealed class SortByStarRatingDecorator(IInventoryQuery inner, SortDirecti
     protected override FilterDescription? AppliedDescription
         => new("Sort", $"Star Rating ({_starDirection.ToString().ToLower()})");
 
-    public override IReadOnlyList<QueriedInventoryItem> Execute()
-
+    protected override IReadOnlyList<QueriedInventoryItem> Decorate(IReadOnlyList<QueriedInventoryItem> items)
     {
-        var searchDirectionResults = _inner.Execute();
-
         if (_starDirection == SortDirection.Ascending)
-            return searchDirectionResults.OrderBy(item =>
-                item.Item.StarRating).ToList();
-
-        return searchDirectionResults.OrderByDescending(item =>
-            item.Item.StarRating).ToList();
+            return items.OrderBy(item => item.Item.StarRating).ToList();
+        
+        return  items.OrderByDescending(item => item.Item.StarRating).ToList();
     }
 }

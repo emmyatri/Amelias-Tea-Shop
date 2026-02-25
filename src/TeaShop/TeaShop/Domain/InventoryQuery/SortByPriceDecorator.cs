@@ -10,17 +10,12 @@ public sealed class SortByPriceDecorator(IInventoryQuery inner, SortDirection pr
 
     protected override FilterDescription? AppliedDescription
         => new("Sort", $"Price ({_priceDirection.ToString().ToLower()})");
-    
-    public override IReadOnlyList<QueriedInventoryItem> Execute()
 
+    protected override IReadOnlyList<QueriedInventoryItem> Decorate(IReadOnlyList<QueriedInventoryItem> items)
     {
-        var searchDirectionResults = _inner.Execute();
-
         if (_priceDirection == SortDirection.Ascending)
-            return searchDirectionResults.OrderBy(item =>
-                item.Item.Price).ToList();
-
-        return searchDirectionResults.OrderByDescending(item =>
-            item.Item.Price).ToList();
+            return items.OrderBy(item => item.Item.Price).ToList();
+        
+        return  items.OrderByDescending(item => item.Item.Price).ToList();
     }
 }

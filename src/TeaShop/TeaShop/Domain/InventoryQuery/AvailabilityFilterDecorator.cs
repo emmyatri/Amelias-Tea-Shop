@@ -12,10 +12,8 @@ public sealed class AvailabilityFilterDecorator(IInventoryQuery inner, bool isAv
             ? "Availability = In Stock (Quantity > 0)"
             : "Availability = Out of Stock (Quantity = 0)");
 
-    public override IReadOnlyList<QueriedInventoryItem> Execute()
+    protected override IReadOnlyList<QueriedInventoryItem> Decorate(IReadOnlyList<QueriedInventoryItem> items)
     {
-        var availabilityResults = _inner.Execute();
-        return availabilityResults.Where(item =>
-            item.Item.Quantity > 0 == _isAvailable).ToList();
+        return items.Where(item => item.Item.Quantity > 0 == _isAvailable).ToList();
     }
 }
