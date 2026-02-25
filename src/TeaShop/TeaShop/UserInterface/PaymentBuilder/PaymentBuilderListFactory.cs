@@ -1,10 +1,10 @@
-﻿using TeaShop.Domain.Payment;
+﻿using TeaShop.UserInterface.QueryBuilder;
 
 namespace TeaShop.UserInterface.PaymentBuilder;
 
 public class PaymentBuilderListFactory
 {
-    public IReadOnlyList<IPaymentBuilder> Create(TextReader reader, TextWriter writer)
+    public IReadOnlyList<IPaymentBuilder> Create(QueryInputReader reader, TextWriter writer)
     {
         return new List<IPaymentBuilder>
         {

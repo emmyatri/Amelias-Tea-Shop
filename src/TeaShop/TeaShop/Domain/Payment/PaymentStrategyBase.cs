@@ -6,7 +6,7 @@
 /// </summary>
 public abstract class PaymentStrategyBase(PurchaseDetails purchase) : IPaymentStrategy
 {
-    protected readonly PurchaseDetails _purchase = purchase;
+    protected readonly PurchaseDetails _purchase = purchase ?? throw new ArgumentNullException(nameof(purchase));
 
     public abstract string Checkout();
 

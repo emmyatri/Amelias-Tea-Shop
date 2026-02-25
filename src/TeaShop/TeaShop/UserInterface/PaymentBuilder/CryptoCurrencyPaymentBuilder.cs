@@ -1,12 +1,13 @@
 ﻿using TeaShop.Domain.Payment;
+using TeaShop.UserInterface.QueryBuilder;
 
 namespace TeaShop.UserInterface.PaymentBuilder;
 
-public class CryptoCurrencyPaymentBuilder(TextReader reader, TextWriter writer) : IPaymentBuilder
+public class CryptoCurrencyPaymentBuilder(QueryInputReader reader, TextWriter writer) : IPaymentBuilder
 {
     public string Name => "Crypto Currency";
-    private readonly TextReader _reader = reader;
-    private readonly TextWriter _writer = writer;
+    private readonly QueryInputReader _reader = reader ?? throw new ArgumentNullException(nameof(reader));
+    private readonly TextWriter _writer = writer ?? throw new ArgumentNullException(nameof(writer));
 
 
     public IPaymentStrategy Build(PurchaseDetails purchase)
@@ -14,8 +15,7 @@ public class CryptoCurrencyPaymentBuilder(TextReader reader, TextWriter writer) 
         string walletNumber;
         do
         {
-            _writer.Write("Enter CryptoCurrency Wallet Number: ");
-            walletNumber = _reader.ReadLine()?.Trim() ?? "";
+            walletNumber = _reader.ReadString("Enter CryptoCurrency Wallet Number: ");
             if (walletNumber.Length < 6)
             {
                 _writer.Write("Invalid Wallet Number. Please enter a valid Wallet Number: ");

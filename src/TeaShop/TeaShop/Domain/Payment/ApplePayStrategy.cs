@@ -5,7 +5,7 @@
 /// </summary>
 public class ApplePayStrategy(PurchaseDetails purchase, string phoneNumber) : PaymentStrategyBase(purchase)
 {
-    private readonly string _phoneNumber = phoneNumber;
+    private readonly string _phoneNumber = phoneNumber ?? throw new ArgumentNullException(nameof(phoneNumber));
 
     public override string Checkout()
     {

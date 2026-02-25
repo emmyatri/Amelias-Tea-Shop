@@ -5,7 +5,7 @@
 /// </summary>
 public class CryptoCurrencyStrategy(PurchaseDetails purchase, string walletNumber) : PaymentStrategyBase(purchase)
 {
-    private readonly string _walletNumber = walletNumber;
+    private readonly string _walletNumber = walletNumber ?? throw new ArgumentNullException(nameof(walletNumber));
 
     public override string Checkout()
     {

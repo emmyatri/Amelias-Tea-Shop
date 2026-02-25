@@ -5,7 +5,7 @@
 /// </summary>
 public class CreditCardStrategy(PurchaseDetails purchase, string creditCardNumber) : PaymentStrategyBase(purchase)
 {
-    private readonly string _creditCardNumber = creditCardNumber;
+    private readonly string _creditCardNumber = creditCardNumber ?? throw new ArgumentNullException(nameof(creditCardNumber));
 
     public override string Checkout()
     {

@@ -1,19 +1,21 @@
 ﻿using TeaShop.Domain.Inventory;
-using TeaShop.Domain.Payment;
 using TeaShop.UserInterface.QueryBuilder;
 using TeaShop.UserInterface.PaymentBuilder;
+using TeaShop.UserInterface.PurchaseBuilder;
 
 namespace TeaShop.UserInterface;
 
-public class Application(TextReader reader, TextWriter writer, InventoryRepository repository)
+public class Application(QueryInputReader reader, InventoryQueryBuilder queryBuilder,
+    InventoryQueryOutputWriter outputWriter, PurchaseHandler purchaseHandler, TextWriter writer)
 {
+    private readonly QueryInputReader _reader = reader ?? throw new ArgumentNullException(nameof(reader));
+    private readonly InventoryQueryBuilder _queryBuilder = queryBuilder ?? throw new ArgumentNullException(nameof(queryBuilder));
+    private readonly InventoryQueryOutputWriter _outputWriter = outputWriter ?? throw new ArgumentNullException(nameof(outputWriter));
+    private readonly PurchaseHandler _purchaseHandler = purchaseHandler ?? throw new ArgumentNullException(nameof(purchaseHandler));
+    private readonly TextWriter _writer = writer ?? throw new ArgumentNullException(nameof(writer));
 
-    private readonly TextReader _reader = reader;
-    private readonly TextWriter _writer = writer;
-    private readonly InventoryRepository _repository = repository;
 
     public void Run()
-
     {
         _writer.WriteLine("===WELCOME TO AMELIA'S TEA SHOP===");
         _writer.WriteLine();
@@ -21,70 +23,16 @@ public class Application(TextReader reader, TextWriter writer, InventoryReposito
         _writer.WriteLine();
 
         var searchAgain = true;
+
         while (searchAgain)
         {
-            var output = new InventoryQueryBuilder(_reader, _writer, _repository).Build();
+            var output = _queryBuilder.Build();
+            _outputWriter.Write(output);
             
-            var outputWriter = new InventoryQueryOutputWriter(_writer);
-            outputWriter.Write(output);
-
             if (output.Items.Count > 0)
-                HandlePurchase(output);
-            
-            _writer.WriteLine();
-            _writer.Write("Search for more tea? (Y/N, default Y): ");
-            var again = _reader.ReadLine().Trim().ToUpper() ?? "";
-            searchAgain = again != "N";
+                _purchaseHandler.TryPurchase(output);
 
+            searchAgain = _reader.ReadChoice("Search for more tea? (Y/N, default Y)", "Y") != "N";
         }
-    }
-
-    private void HandlePurchase(InventoryQueryOutput output)
-    {
-        
-        _writer.WriteLine();
-        _writer.Write($"Purchase an item? Enter item number 1-{output.Items.Count} or 0 to continue (default): ");
-        var itemInput = _reader.ReadLine()?.Trim() ?? "";
-
-        if (itemInput == "" || itemInput == "0")
-            return;
-
-        var itemIndex = int.Parse(itemInput) - 1;
-        var selectedItem = output.Items[itemIndex].Item;
-
-        int quantity;
-
-        do
-        {
-            _writer.Write($"Quantity for \"{selectedItem.Name}\" (1-{selectedItem.Quantity}): ");
-            var quantityInput = _reader.ReadLine()?.Trim() ?? "";
-            quantity = int.Parse(quantityInput);
-            if (quantity < 1 || quantity > selectedItem.Quantity)
-                _writer.Write("Invalid. Quantity must be between 1 and " + selectedItem.Quantity);
-        } while (quantity < 1 || quantity > selectedItem.Quantity);
-        
-        var totalPrice = selectedItem.Price * quantity;
-        _writer.WriteLine($"*** Total price: {totalPrice:C} ***");
-
-        var factory = new PaymentBuilderListFactory();
-        var builders = factory.Create(_reader, _writer);
-        
-        _writer.WriteLine("*** Choose a payment method: ");
-        for (var i = 0; i < builders.Count; i++)
-        {
-            _writer.WriteLine($"{i + 1}. {builders[i].Name}");
-        }
-
-        _writer.Write("Selection: ");
-        var paymentInput = _reader.ReadLine()?.Trim() ?? "";
-        var paymentIndex = int.Parse(paymentInput) - 1;
-        
-        var purchase = new PurchaseDetails(totalPrice, selectedItem.Name, quantity);
-        var strategy = builders[paymentIndex].Build(purchase);
-        _writer.WriteLine(strategy.Checkout());
-        
-        _repository.UpdateQuantity(selectedItem.Id, quantity);
-
-
     }
 }

@@ -25,11 +25,14 @@ public class InventoryQueryOutputWriter(TextWriter writer)
         }
         
         _writer.WriteLine($"{output.Items.Count} items matched your query: ");
+        
+        var maxNameLength = output.Items.Max(i =>i.Item.Name.Length) + 2;
+        
         for (var i = 0; i < output.Items.Count; i++)
         {
             var item = output.Items[i].Item;
-            var quantity = item.Quantity > 0 ? $"Qty: {item.Quantity}" : "(OUT OF STOCK)";
-            _writer.WriteLine($"{i + 1}. {item.Name, -50} {item.Price, 8:C} {quantity, -15} {item.StarRating}");
+            var quantity = item.Quantity > 0 ? $"\tQty: {item.Quantity, -4}" : "(OUT OF STOCK)";
+            _writer.WriteLine($"{i + 1, 2}. {item.Name.PadRight(maxNameLength)} {item.Price, 15:C} {quantity, -15} {item.StarRating}");
         }
     }
 }

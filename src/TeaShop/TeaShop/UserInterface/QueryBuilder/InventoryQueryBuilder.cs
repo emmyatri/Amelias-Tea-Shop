@@ -3,92 +3,85 @@ using TeaShop.Domain.InventoryQuery;
 
 namespace TeaShop.UserInterface.QueryBuilder;
 
-public class InventoryQueryBuilder(TextReader reader, TextWriter writer, InventoryRepository repository)
+public class InventoryQueryBuilder(QueryInputReader reader, InventoryRepository repository)
 {
-    private readonly TextReader _reader = reader;
-    private readonly TextWriter _writer = writer;
-    private readonly InventoryRepository _repository = repository;
+    private readonly QueryInputReader _reader = reader ?? throw new ArgumentNullException(nameof(reader));
+    private readonly InventoryRepository _repository = repository ?? throw new ArgumentNullException(nameof(repository));
 
     public InventoryQueryOutput Build()
     {
+        var context = new QueryContext(new AllInventoryQuery(_repository), new List<string>());
         
-        var appliedFilters = new List<string>();
-        
-        IInventoryQuery query = new AllInventoryQuery(_repository);
-        
-        //Name Contains
-        _writer.Write("*Tea name contains (leave blank for all names): ");
-        var nameInput = _reader.ReadLine()?.Trim() ?? "";
-        if (nameInput != "")
-        {
-            query = new NameContainsFilterDecorator(query, nameInput);
-            appliedFilters.Add($"Filter: Name contains \"{nameInput}\"");
-        }
-        
-        
-        //Is Available
-        _writer.Write("*Is available? (Y/N, default Y): ");
-        var isAvailableInput = _reader.ReadLine()?.Trim().ToUpper() ?? "";
-        var isAvailable = isAvailableInput != "N";
-        
-        query = new AvailabilityFilterDecorator(query, isAvailable);
-        appliedFilters.Add(isAvailable
-            ? $"Filter: Availability = In Stock (Quantity > 0)"
-            : "Filter: Availability = Out of Stock (Quantity = 0)");
-        
-        
-        // Price Minimum
-        _writer.Write("* Price minimum (default $0): ");
-        var priceMinimumInput = _reader.ReadLine()?.Trim() ?? "";
-        var priceMin = priceMinimumInput == "" ? 0m : decimal.Parse(priceMinimumInput);
-        
-        
-        // Price Maximum
-        _writer.Write("* Price maximum (default $1000): ");
-        var priceMaximumInput = _reader.ReadLine()?.Trim() ?? "";
-        var priceMax = priceMaximumInput == "" ? 1000m : decimal.Parse(priceMaximumInput);
-        
-        query = new PriceRangeFilterDecorator(query, priceMin, priceMax);
-        appliedFilters.Add($"Filter: Price between {priceMin:C} and {priceMax:C}");
-        
-        
-        // Star Rating Minimum
-        _writer.Write("* Star rating minimum (1-5, default 3): ");
-        var starRatingMin = _reader.ReadLine()?.Trim() ?? "";
-        var starMin = new StarRating(starRatingMin == "" ? 3 : int.Parse(starRatingMin));
-        
-        // Star Rating Maximum
-        _writer.Write("* Star rating maximum (1-5, default 5): ");
-        
-        var starRatingMax = _reader.ReadLine()?.Trim() ?? "";
-        var starMax = new StarRating(starRatingMax == "" ? 5 : int.Parse(starRatingMax));
-        
-        query = new StarRatingRangeFilterDecorator(query, starMin, starMax);
-        appliedFilters.Add($"Filter: Star rating between {starMin.StarValue} and {starMax.StarValue}");
-        
-        
-        //Sort by Price
-        _writer.Write("* Sort by Price (A/D, default A): ");
-        var sortByPriceInput = _reader.ReadLine()?.Trim().ToUpper() ?? "";
-        var priceSortDirection = sortByPriceInput == "D" ? SortDirection.Descending : SortDirection.Ascending;
-        
-        query = new SortByPriceDecorator(query, priceSortDirection);
-        appliedFilters.Add($"Sort: Price ({priceSortDirection.ToString().ToLower()})");
-        
-        
-        //Sort by Star Rating
-        _writer.Write("* Sort by Star Rating (A/D, default D): ");
-        var sortByStarRatingInput = _reader.ReadLine()?.Trim().ToUpper() ?? "";
-        var starSortDirection = sortByStarRatingInput == "A" ? SortDirection.Ascending : SortDirection.Descending;
-        
-        
-        query = new SortByStarRatingDecorator(query, starSortDirection);
-        appliedFilters.Add($"Sort: Star Rating ({starSortDirection.ToString().ToLower()})");
+        context = ApplyNameFilter(context);
+        context = ApplyAvailabilityFilter(context);
+        context = ApplyPriceRangeFilter(context);
+        context = ApplyStarRatingFilter(context);
+        context = ApplyPriceSort(context);
+        context = ApplyStarRatingSort(context);
 
+        var results = context.Query.Execute();
+        return new InventoryQueryOutput(results.ToList(), context.AppliedFilters);
+
+    }
+
+    private QueryContext ApplyNameFilter(QueryContext ctx)
+    {
+        var name = _reader.ReadString("*Tea name contains (leave blank for all names): ");
+        if (name == "") return ctx;
         
-        //Execute composed query and return results
-        var results = query.Execute();
-        return new InventoryQueryOutput(results.ToList(), appliedFilters);
+        ctx.AppliedFilters.Add($"Filter: Name contains \"{name}\"");
+        return new QueryContext(new NameContainsFilterDecorator(ctx.Query, name), ctx.AppliedFilters);
+    }
+
+    private QueryContext ApplyAvailabilityFilter(QueryContext ctx)
+    {
+        var choice = _reader.ReadChoice("*Is available? (Y/N, default Y): ", "Y");
+        var isAvailable = choice != "N";
+        
+        ctx.AppliedFilters.Add(isAvailable
+        ? "Filter: Availability = In Stock (Quantity > 0)"
+        : "Filter: Availability = Out of Stock (Quantity = 0)");
+        
+        return new QueryContext(new AvailabilityFilterDecorator(ctx.Query, isAvailable), ctx.AppliedFilters);
+    }
+
+    private QueryContext ApplyPriceRangeFilter(QueryContext ctx)
+    {
+        var min = _reader.ReadDecimal("* Price minimum (default $0): ", 0m);
+        var max = _reader.ReadDecimal("* Price maximum (default $1000): ", 1000m);
+        
+        ctx.AppliedFilters.Add($"Filter price range between {min} and {max}");
+        
+        return new QueryContext(new PriceRangeFilterDecorator(ctx.Query, min, max), ctx.AppliedFilters);
+    }
+
+    private QueryContext ApplyStarRatingFilter(QueryContext ctx)
+    {
+        var min = _reader.ReadInt("* Star rating minimum (1-5, default 3)", 3);
+        var max = _reader.ReadInt("* Star rating maximum (1-5, default 5)", 5);
+        
+        ctx.AppliedFilters.Add($"Filter star rating between {min} and {max}");
+        
+        return new QueryContext(
+            new StarRatingRangeFilterDecorator(ctx.Query, new StarRating(min),new StarRating(max)), 
+            ctx.AppliedFilters);
+    }
+
+    private QueryContext ApplyPriceSort(QueryContext ctx)
+    {
+        var choice = _reader.ReadChoice("* Sort by Price(A/D, default A)", "A");
+        var direction = choice == "D" ? SortDirection.Descending : SortDirection.Ascending;
+        
+        ctx.AppliedFilters.Add($"Sort: Price ({direction.ToString().ToLower()})");
+        return new QueryContext(new SortByPriceDecorator(ctx.Query, direction), ctx.AppliedFilters);
     }
     
+    private QueryContext ApplyStarRatingSort(QueryContext ctx)
+    {
+        var choice = _reader.ReadChoice("* Sort by Star Rating (A/D, default D)", "D");
+        var direction = choice == "A" ? SortDirection.Ascending : SortDirection.Descending;
+        
+        ctx.AppliedFilters.Add($"Sort: Star Rating ({direction.ToString().ToLower()})");
+        return new QueryContext(new SortByStarRatingDecorator(ctx.Query, direction), ctx.AppliedFilters);
+    }
 }
