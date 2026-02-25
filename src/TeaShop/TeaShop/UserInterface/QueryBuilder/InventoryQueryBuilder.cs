@@ -17,41 +17,35 @@ public sealed class InventoryQueryBuilder(UserPrompt reader, InventoryRepository
 
     public InventoryQueryOutput Build()
     {
-        var context = new QueryContext(new AllInventoryQuery(_repository), new List<string>());
+        IInventoryQuery query = new AllInventoryQuery(_repository);
 
-        context = ApplyNameFilter(context);
-        context = ApplyAvailabilityFilter(context);
-        context = ApplyPriceRangeFilter(context);
-        context = ApplyStarRatingFilter(context);
-        context = ApplyPriceSort(context);
-        context = ApplyStarRatingSort(context);
+        query = ApplyNameFilter(query);
+        query = ApplyAvailabilityFilter(query);
+        query = ApplyPriceRangeFilter(query);
+        query = ApplyStarRatingFilter(query);
+        query = ApplyPriceSort(query);
+        query = ApplyStarRatingSort(query);
 
-        var results = context.Query.Execute();
-        return new InventoryQueryOutput(results.ToList(), context.AppliedFilters);
+        var results = query.Execute();
+
+        return new InventoryQueryOutput(results.ToList(), query.AppliedFiltersAndSorts);
     }
 
-    private QueryContext ApplyNameFilter(QueryContext ctx)
+    private IInventoryQuery ApplyNameFilter(IInventoryQuery query)
     {
         var name = _reader.ReadString("*Tea name contains (leave blank for all names): ");
-        if (string.IsNullOrWhiteSpace(name)) return ctx;
-
-        ctx.AppliedFilters.Add($"Filter: Name contains \"{name}\"");
-        return new QueryContext(new NameContainsFilterDecorator(ctx.Query, name), ctx.AppliedFilters);
+        if (string.IsNullOrWhiteSpace(name)) return query;
+        return new NameContainsFilterDecorator(query, name);
     }
 
-    private QueryContext ApplyAvailabilityFilter(QueryContext ctx)
+    private IInventoryQuery ApplyAvailabilityFilter(IInventoryQuery query)
     {
         var choice = _reader.ReadChoice("*Is available? (Y/N, default Y): ", "Y");
         var isAvailable = choice != "N";
-
-        ctx.AppliedFilters.Add(isAvailable
-            ? "Filter: Availability = In Stock (Quantity > 0)"
-            : "Filter: Availability = Out of Stock (Quantity = 0)");
-
-        return new QueryContext(new AvailabilityFilterDecorator(ctx.Query, isAvailable), ctx.AppliedFilters);
+        return new AvailabilityFilterDecorator(query, isAvailable);
     }
 
-    private QueryContext ApplyPriceRangeFilter(QueryContext ctx)
+    private IInventoryQuery ApplyPriceRangeFilter(IInventoryQuery query)
     {
         decimal min, max;
 
@@ -64,11 +58,10 @@ public sealed class InventoryQueryBuilder(UserPrompt reader, InventoryRepository
                 _reader.WriteMessage("\n Minimum price cannot exceed maximum. Please re-enter.\n");
         } while (min > max);
 
-        ctx.AppliedFilters.Add($"Filter price range between {min} and {max}");
-        return new QueryContext(new PriceRangeFilterDecorator(ctx.Query, min, max), ctx.AppliedFilters);
+        return new PriceRangeFilterDecorator(query, min, max);
     }
 
-    private QueryContext ApplyStarRatingFilter(QueryContext ctx)
+    private IInventoryQuery ApplyStarRatingFilter(IInventoryQuery query)
     {
         int min, max;
 
@@ -80,28 +73,20 @@ public sealed class InventoryQueryBuilder(UserPrompt reader, InventoryRepository
             if (min > max) _reader.WriteMessage("\nMinimum star rating cannot exceed maximum. Please re-enter\n");
         } while (min > max);
 
-        ctx.AppliedFilters.Add($"Filter star rating between {min} and {max}");
-
-        return new QueryContext(
-            new StarRatingRangeFilterDecorator(ctx.Query, new StarRating(min), new StarRating(max)),
-            ctx.AppliedFilters);
+        return new StarRatingRangeFilterDecorator(query, new StarRating(min), new StarRating(max));
     }
 
-    private QueryContext ApplyPriceSort(QueryContext ctx)
+    private IInventoryQuery ApplyPriceSort(IInventoryQuery query)
     {
         var choice = _reader.ReadChoice("* Sort by Price(A/D, default A): ", "A");
         var direction = choice == "D" ? SortDirection.Descending : SortDirection.Ascending;
-
-        ctx.AppliedFilters.Add($"Sort: Price ({direction.ToString().ToLower()})");
-        return new QueryContext(new SortByPriceDecorator(ctx.Query, direction), ctx.AppliedFilters);
+        return new SortByPriceDecorator(query, direction);
     }
 
-    private QueryContext ApplyStarRatingSort(QueryContext ctx)
+    private IInventoryQuery ApplyStarRatingSort(IInventoryQuery query)
     {
         var choice = _reader.ReadChoice("* Sort by Star Rating (A/D, default D): ", "D");
         var direction = choice == "A" ? SortDirection.Ascending : SortDirection.Descending;
-
-        ctx.AppliedFilters.Add($"Sort: Star Rating ({direction.ToString().ToLower()})");
-        return new QueryContext(new SortByStarRatingDecorator(ctx.Query, direction), ctx.AppliedFilters);
+        return new SortByStarRatingDecorator(query, direction);
     }
 }
