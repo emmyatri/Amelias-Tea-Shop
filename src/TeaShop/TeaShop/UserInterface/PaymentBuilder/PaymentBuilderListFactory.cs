@@ -4,7 +4,7 @@ namespace TeaShop.UserInterface.PaymentBuilder;
 
 public class PaymentBuilderListFactory
 {
-    public IReadOnlyList<IPaymentBuilder> Create(QueryInputReader reader, TextWriter writer)
+    public IReadOnlyList<IPaymentBuilder> Create(UserPrompt reader, TextWriter writer)
     {
         return new List<IPaymentBuilder>
         {

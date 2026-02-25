@@ -3,10 +3,10 @@ using TeaShop.UserInterface.QueryBuilder;
 
 namespace TeaShop.UserInterface.PaymentBuilder;
 
-public class ApplePayPaymentBuilder(QueryInputReader reader, TextWriter writer) : IPaymentBuilder
+public class ApplePayPaymentBuilder(UserPrompt reader, TextWriter writer) : IPaymentBuilder
 {
     public string Name => "ApplePay";
-    private readonly QueryInputReader _reader = reader ?? throw new ArgumentNullException(nameof(reader));
+    private readonly UserPrompt _reader = reader ?? throw new ArgumentNullException(nameof(reader));
     private readonly TextWriter _writer = writer ?? throw new ArgumentNullException(nameof(writer));
 
 

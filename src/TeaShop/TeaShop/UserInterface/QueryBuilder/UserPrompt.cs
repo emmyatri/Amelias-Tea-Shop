@@ -2,7 +2,7 @@
 
 namespace TeaShop.UserInterface.QueryBuilder;
 
-public class QueryInputReader(TextReader reader, TextWriter writer)
+public class UserPrompt(TextReader reader, TextWriter writer)
 {
     
     private readonly TextReader _reader = reader ?? throw new ArgumentNullException(nameof(reader));
@@ -68,6 +68,11 @@ public class QueryInputReader(TextReader reader, TextWriter writer)
         _writer.WriteLine("-----");
         return string.IsNullOrWhiteSpace(input) ? defaultValue : input;
 
+    }
+    
+    public void WriteMessage(string message)
+    {
+        _writer.WriteLine(message);
     }
     
 }

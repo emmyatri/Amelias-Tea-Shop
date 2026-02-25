@@ -6,7 +6,7 @@ using TeaShop.UserInterface.QueryBuilder;
 Console.OutputEncoding = System.Text.Encoding.UTF8;
 
 var repository = new InventoryRepository();
-var input = new QueryInputReader(Console.In, Console.Out);
+var input = new UserPrompt(Console.In, Console.Out);
 var queryBuilder = new InventoryQueryBuilder(input, repository);
 var outputWriter = new InventoryQueryOutputWriter(Console.Out);
 var paymentHandler = new PaymentHandler(input, Console.Out);

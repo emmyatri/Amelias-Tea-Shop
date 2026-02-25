@@ -4,9 +4,9 @@ using TeaShop.UserInterface.QueryBuilder;
 
 namespace TeaShop.UserInterface.PurchaseBuilder;
 
-public class PaymentHandler(QueryInputReader reader, TextWriter writer)
+public class PaymentHandler(UserPrompt reader, TextWriter writer)
 {
-    private readonly QueryInputReader _reader = reader ?? throw new ArgumentNullException(nameof(reader));
+    private readonly UserPrompt _reader = reader ?? throw new ArgumentNullException(nameof(reader));
     private readonly TextWriter _writer = writer ?? throw new ArgumentNullException(nameof(writer));
 
 

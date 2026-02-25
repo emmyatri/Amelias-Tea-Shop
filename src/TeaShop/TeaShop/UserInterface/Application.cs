@@ -5,10 +5,10 @@ using TeaShop.UserInterface.PurchaseBuilder;
 
 namespace TeaShop.UserInterface;
 
-public class Application(QueryInputReader reader, InventoryQueryBuilder queryBuilder,
+public class Application(UserPrompt reader, InventoryQueryBuilder queryBuilder,
     InventoryQueryOutputWriter outputWriter, PurchaseHandler purchaseHandler, TextWriter writer)
 {
-    private readonly QueryInputReader _reader = reader ?? throw new ArgumentNullException(nameof(reader));
+    private readonly UserPrompt _reader = reader ?? throw new ArgumentNullException(nameof(reader));
     private readonly InventoryQueryBuilder _queryBuilder = queryBuilder ?? throw new ArgumentNullException(nameof(queryBuilder));
     private readonly InventoryQueryOutputWriter _outputWriter = outputWriter ?? throw new ArgumentNullException(nameof(outputWriter));
     private readonly PurchaseHandler _purchaseHandler = purchaseHandler ?? throw new ArgumentNullException(nameof(purchaseHandler));

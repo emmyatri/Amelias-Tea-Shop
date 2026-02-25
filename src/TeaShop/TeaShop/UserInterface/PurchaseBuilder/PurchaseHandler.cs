@@ -4,11 +4,11 @@ using TeaShop.UserInterface.QueryBuilder;
 
 namespace TeaShop.UserInterface.PurchaseBuilder;
 
-public class PurchaseHandler(QueryInputReader reader, PaymentHandler paymentHandler, 
+public class PurchaseHandler(UserPrompt reader, PaymentHandler paymentHandler, 
     InventoryRepository repository, TextWriter writer)
 {
     
-    private readonly QueryInputReader _reader = reader ?? throw new ArgumentNullException(nameof(reader));
+    private readonly UserPrompt _reader = reader ?? throw new ArgumentNullException(nameof(reader));
     private readonly PaymentHandler _paymentHandler = paymentHandler ?? throw new ArgumentNullException(nameof(paymentHandler));
     private readonly InventoryRepository _repository = repository ?? throw new ArgumentNullException(nameof(repository));
     private readonly TextWriter _writer = writer ?? throw new ArgumentNullException(nameof(writer));

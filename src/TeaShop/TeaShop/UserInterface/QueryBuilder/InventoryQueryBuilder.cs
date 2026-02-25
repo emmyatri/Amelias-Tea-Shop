@@ -3,9 +3,9 @@ using TeaShop.Domain.InventoryQuery;
 
 namespace TeaShop.UserInterface.QueryBuilder;
 
-public class InventoryQueryBuilder(QueryInputReader reader, InventoryRepository repository)
+public class InventoryQueryBuilder(UserPrompt reader, InventoryRepository repository)
 {
-    private readonly QueryInputReader _reader = reader ?? throw new ArgumentNullException(nameof(reader));
+    private readonly UserPrompt _reader = reader ?? throw new ArgumentNullException(nameof(reader));
     private readonly InventoryRepository _repository = repository ?? throw new ArgumentNullException(nameof(repository));
 
     public InventoryQueryOutput Build()
@@ -47,18 +47,35 @@ public class InventoryQueryBuilder(QueryInputReader reader, InventoryRepository 
 
     private QueryContext ApplyPriceRangeFilter(QueryContext ctx)
     {
-        var min = _reader.ReadDecimal("* Price minimum (default $0): ", 0m);
-        var max = _reader.ReadDecimal("* Price maximum (default $1000): ", 1000m);
+        decimal min, max;
+
+        do
+        {
+            min = _reader.ReadDecimal("* Price minimum (default $0): ", 0m);
+            max = _reader.ReadDecimal("* Price maximum (default $1000): ", 1000m);
+
+            if (min > max)
+                _reader.WriteMessage("\n Minimum price cannot exceed maximum. Please re-enter.\n");
+        } while (min > max);
         
         ctx.AppliedFilters.Add($"Filter price range between {min} and {max}");
-        
         return new QueryContext(new PriceRangeFilterDecorator(ctx.Query, min, max), ctx.AppliedFilters);
     }
 
     private QueryContext ApplyStarRatingFilter(QueryContext ctx)
     {
-        var min = _reader.ReadInt("* Star rating minimum (1-5, default 3): ", 3, 1, 5);
-        var max = _reader.ReadInt("* Star rating maximum (1-5, default 5): ", 5, 1, 5);
+        int min, max;
+
+        do
+        {
+            min = _reader.ReadInt("* Star rating minimum (1-5, default 3): ", 3, 1, 5);
+            max = _reader.ReadInt("* Star rating maximum (1-5, default 5): ", 5, 1, 5);
+
+            if (min > max)
+            {
+                reader.WriteMessage("\nMinimum star rating cannot exceed maximum. Please re-enter\n");
+            }
+        } while (min > max);
         
         ctx.AppliedFilters.Add($"Filter star rating between {min} and {max}");
         
@@ -84,4 +101,5 @@ public class InventoryQueryBuilder(QueryInputReader reader, InventoryRepository 
         ctx.AppliedFilters.Add($"Sort: Star Rating ({direction.ToString().ToLower()})");
         return new QueryContext(new SortByStarRatingDecorator(ctx.Query, direction), ctx.AppliedFilters);
     }
+    
 }

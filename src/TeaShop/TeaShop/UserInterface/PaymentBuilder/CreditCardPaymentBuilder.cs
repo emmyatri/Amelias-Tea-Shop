@@ -3,10 +3,10 @@ using TeaShop.UserInterface.QueryBuilder;
 
 namespace TeaShop.UserInterface.PaymentBuilder;
 
-public class CreditCardPaymentBuilder(QueryInputReader reader, TextWriter writer) : IPaymentBuilder
+public class CreditCardPaymentBuilder(UserPrompt reader, TextWriter writer) : IPaymentBuilder
 {
     public string Name => "Credit Card";
-    private readonly QueryInputReader _reader = reader ?? throw new ArgumentNullException(nameof(reader));
+    private readonly UserPrompt _reader = reader ?? throw new ArgumentNullException(nameof(reader));
     private readonly TextWriter _writer = writer ?? throw new ArgumentNullException(nameof(writer));
     
     public IPaymentStrategy Build(PurchaseDetails purchase)
