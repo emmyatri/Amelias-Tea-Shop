@@ -8,6 +8,8 @@ public sealed class SortByStarRatingDecorator(IInventoryQuery inner, SortDirecti
 {
     private readonly SortDirection _starDirection = starDirection;
 
+    protected override FilterDescription? AppliedDescription
+        => new("Sort", $"Star Rating ({_starDirection.ToString().ToLower()})");
 
     public override IReadOnlyList<QueriedInventoryItem> Execute()
 

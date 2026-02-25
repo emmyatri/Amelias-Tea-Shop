@@ -10,6 +10,9 @@ public sealed class AllInventoryQuery(InventoryRepository stock) : IInventoryQue
 {
     private readonly InventoryRepository _stock = stock ?? throw new ArgumentNullException(nameof(stock));
 
+
+    public IReadOnlyList<FilterDescription> AppliedFiltersAndSorts { get; } = [];
+
     public IReadOnlyList<QueriedInventoryItem> Execute()
     {
         return

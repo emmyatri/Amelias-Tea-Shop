@@ -7,7 +7,19 @@
 public abstract class InventoryQueryDecoratorBase(IInventoryQuery inner) : IInventoryQuery
 {
     protected readonly IInventoryQuery _inner = inner ?? throw new ArgumentNullException(nameof(inner));
-
+    protected virtual FilterDescription? AppliedDescription => null;
 
     public abstract IReadOnlyList<QueriedInventoryItem> Execute();
+
+    public IReadOnlyList<FilterDescription> AppliedFiltersAndSorts
+    {
+        get
+        {
+            if (AppliedDescription is null)
+                return _inner.AppliedFiltersAndSorts;
+
+            var combined = new List<FilterDescription>(_inner.AppliedFiltersAndSorts) { AppliedDescription };
+            return combined.AsReadOnly();
+        }
+    }
 }

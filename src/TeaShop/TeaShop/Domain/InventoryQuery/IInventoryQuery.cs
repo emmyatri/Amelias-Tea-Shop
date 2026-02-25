@@ -10,4 +10,6 @@ public interface IInventoryQuery
     ///     Executes the query and returns matching inventory items.
     /// </summary>
     IReadOnlyList<QueriedInventoryItem> Execute();
+
+    IReadOnlyList<FilterDescription> AppliedFiltersAndSorts { get; }
 }

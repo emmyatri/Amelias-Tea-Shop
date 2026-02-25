@@ -11,7 +11,10 @@ public sealed class MinStarRatingFilterDecorator(IInventoryQuery inner, StarRati
     private readonly StarRating _searchStarRatingMin =
         searchStarRatingMin ?? throw new ArgumentNullException(nameof(searchStarRatingMin));
 
+    protected override FilterDescription? AppliedDescription
+        => new("Filter", $"Star rating >= {_searchStarRatingMin.StarValue}");
 
+    
     public override IReadOnlyList<QueriedInventoryItem> Execute()
     {
         var minStarRatingResults = _inner.Execute();

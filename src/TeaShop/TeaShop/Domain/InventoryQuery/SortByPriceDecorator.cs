@@ -8,6 +8,9 @@ public sealed class SortByPriceDecorator(IInventoryQuery inner, SortDirection pr
 {
     private readonly SortDirection _priceDirection = priceDirection;
 
+    protected override FilterDescription? AppliedDescription
+        => new("Sort", $"Price ({_priceDirection.ToString().ToLower()})");
+    
     public override IReadOnlyList<QueriedInventoryItem> Execute()
 
     {
