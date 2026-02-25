@@ -3,6 +3,10 @@ using TeaShop.UserInterface.QueryBuilder;
 
 namespace TeaShop.UserInterface.PaymentBuilder;
 
+
+/// <summary>
+///     Collects a card number and builds a <see cref="CreditCardStrategy"/>.
+/// </summary>
 public class CreditCardPaymentBuilder(UserPrompt reader, TextWriter writer) : IPaymentBuilder
 {
     public string Name => "Credit Card";

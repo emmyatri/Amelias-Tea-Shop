@@ -3,6 +3,10 @@ using TeaShop.UserInterface.QueryBuilder;
 
 namespace TeaShop.UserInterface.PaymentBuilder;
 
+
+/// <summary>
+///     Collects a wallet number and builds a <see cref="CryptoCurrencyStrategy"/>.
+/// </summary>
 public class CryptoCurrencyPaymentBuilder(UserPrompt reader, TextWriter writer) : IPaymentBuilder
 {
     public string Name => "Crypto Currency";

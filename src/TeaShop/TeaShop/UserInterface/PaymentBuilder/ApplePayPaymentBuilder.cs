@@ -3,6 +3,10 @@ using TeaShop.UserInterface.QueryBuilder;
 
 namespace TeaShop.UserInterface.PaymentBuilder;
 
+
+/// <summary>
+///     Collects a phone number and builds an <see cref="ApplePayStrategy"/>.
+/// </summary>
 public class ApplePayPaymentBuilder(UserPrompt reader, TextWriter writer) : IPaymentBuilder
 {
     public string Name => "ApplePay";
