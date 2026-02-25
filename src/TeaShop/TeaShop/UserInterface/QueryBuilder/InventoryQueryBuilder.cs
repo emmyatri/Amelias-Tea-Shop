@@ -57,8 +57,8 @@ public class InventoryQueryBuilder(QueryInputReader reader, InventoryRepository 
 
     private QueryContext ApplyStarRatingFilter(QueryContext ctx)
     {
-        var min = _reader.ReadInt("* Star rating minimum (1-5, default 3)", 3);
-        var max = _reader.ReadInt("* Star rating maximum (1-5, default 5)", 5);
+        var min = _reader.ReadInt("* Star rating minimum (1-5, default 3): ", 3);
+        var max = _reader.ReadInt("* Star rating maximum (1-5, default 5): ", 5);
         
         ctx.AppliedFilters.Add($"Filter star rating between {min} and {max}");
         
@@ -69,7 +69,7 @@ public class InventoryQueryBuilder(QueryInputReader reader, InventoryRepository 
 
     private QueryContext ApplyPriceSort(QueryContext ctx)
     {
-        var choice = _reader.ReadChoice("* Sort by Price(A/D, default A)", "A");
+        var choice = _reader.ReadChoice("* Sort by Price(A/D, default A): ", "A");
         var direction = choice == "D" ? SortDirection.Descending : SortDirection.Ascending;
         
         ctx.AppliedFilters.Add($"Sort: Price ({direction.ToString().ToLower()})");
@@ -78,7 +78,7 @@ public class InventoryQueryBuilder(QueryInputReader reader, InventoryRepository 
     
     private QueryContext ApplyStarRatingSort(QueryContext ctx)
     {
-        var choice = _reader.ReadChoice("* Sort by Star Rating (A/D, default D)", "D");
+        var choice = _reader.ReadChoice("* Sort by Star Rating (A/D, default D): ", "D");
         var direction = choice == "A" ? SortDirection.Ascending : SortDirection.Descending;
         
         ctx.AppliedFilters.Add($"Sort: Star Rating ({direction.ToString().ToLower()})");

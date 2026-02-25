@@ -14,7 +14,7 @@ public class QueryInputReader(TextReader reader, TextWriter writer)
         
         _writer.Write(prompt);
         var input = _reader.ReadLine()?.Trim() ?? "";
-        _writer.WriteLine("-----");
+        _writer.WriteLine("\n-----");
         return input;
         
     }
