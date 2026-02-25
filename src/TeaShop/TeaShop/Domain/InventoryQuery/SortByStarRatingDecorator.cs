@@ -3,7 +3,7 @@
 /// <summary>
 ///     Sorts inventory items by star rating in the specified direction.
 /// </summary>
-public class SortByStarRatingDecorator(IInventoryQuery inner, SortDirection starDirection)
+public sealed class SortByStarRatingDecorator(IInventoryQuery inner, SortDirection starDirection)
     : InventoryQueryDecoratorBase(inner)
 {
     private readonly SortDirection _starDirection = starDirection;

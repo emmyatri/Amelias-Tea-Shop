@@ -7,7 +7,7 @@ namespace TeaShop.UserInterface.PurchaseBuilder;
 ///     Handles the purchase flow: item selection, quantity input,
 ///     price calculation, and payment delegation.
 /// </summary>
-public class PurchaseHandler(
+public sealed class PurchaseHandler(
     UserPrompt reader,
     PaymentHandler paymentHandler,
     InventoryRepository repository,

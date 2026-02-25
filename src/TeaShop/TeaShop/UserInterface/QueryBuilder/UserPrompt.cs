@@ -1,6 +1,6 @@
 ﻿namespace TeaShop.UserInterface.QueryBuilder;
 
-public class UserPrompt(TextReader reader, TextWriter writer)
+public sealed class UserPrompt(TextReader reader, TextWriter writer)
 {
     private readonly TextReader _reader = reader ?? throw new ArgumentNullException(nameof(reader));
     private readonly TextWriter _writer = writer ?? throw new ArgumentNullException(nameof(writer));

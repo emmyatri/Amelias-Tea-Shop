@@ -6,7 +6,7 @@ namespace TeaShop.UserInterface.PaymentBuilder;
 ///     Creates the list of available payment builders.
 ///     Add new payment methods here without modifying existing builders (OCP).
 /// </summary>
-public class PaymentBuilderListFactory
+public sealed class PaymentBuilderListFactory
 {
     public IReadOnlyList<IPaymentBuilder> Create(UserPrompt reader, TextWriter writer)
     {

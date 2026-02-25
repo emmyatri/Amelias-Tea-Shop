@@ -6,7 +6,7 @@ namespace TeaShop.UserInterface.PaymentBuilder;
 /// <summary>
 ///     Collects a phone number and builds an <see cref="ApplePayStrategy"/>.
 /// </summary>
-public class ApplePayPaymentBuilder(UserPrompt reader, TextWriter writer) : IPaymentBuilder
+public sealed class ApplePayPaymentBuilder(UserPrompt reader, TextWriter writer) : IPaymentBuilder
 {
     public string Name => "ApplePay";
     private readonly UserPrompt _reader = reader ?? throw new ArgumentNullException(nameof(reader));

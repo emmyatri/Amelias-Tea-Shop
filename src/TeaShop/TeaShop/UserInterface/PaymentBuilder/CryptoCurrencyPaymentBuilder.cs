@@ -6,7 +6,7 @@ namespace TeaShop.UserInterface.PaymentBuilder;
 /// <summary>
 ///     Collects a wallet number and builds a <see cref="CryptoCurrencyStrategy"/>.
 /// </summary>
-public class CryptoCurrencyPaymentBuilder(UserPrompt reader, TextWriter writer) : IPaymentBuilder
+public sealed class CryptoCurrencyPaymentBuilder(UserPrompt reader, TextWriter writer) : IPaymentBuilder
 {
     public string Name => "Crypto Currency";
     private readonly UserPrompt _reader = reader ?? throw new ArgumentNullException(nameof(reader));

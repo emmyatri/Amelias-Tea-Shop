@@ -3,7 +3,7 @@
 /// <summary>
 ///     Represents a 1-5 star rating with invariant enforcement.
 /// </summary>
-public class StarRating : IComparable<StarRating>
+public sealed class StarRating : IComparable<StarRating>
 {
     public StarRating(int value)
     {

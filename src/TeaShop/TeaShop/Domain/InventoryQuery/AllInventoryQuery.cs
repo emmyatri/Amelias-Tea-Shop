@@ -6,7 +6,7 @@ namespace TeaShop.Domain.InventoryQuery;
 ///     Returns the full inventory with no filters applied.
 ///     Serves as the base query in the decorator chain.
 /// </summary>
-public class AllInventoryQuery(InventoryRepository stock) : IInventoryQuery
+public sealed class AllInventoryQuery(InventoryRepository stock) : IInventoryQuery
 {
     private readonly InventoryRepository _stock = stock ?? throw new ArgumentNullException(nameof(stock));
 

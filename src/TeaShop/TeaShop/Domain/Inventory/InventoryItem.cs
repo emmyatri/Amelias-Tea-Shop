@@ -3,7 +3,7 @@
 /// <summary>
 ///     Represents a single tea product in the inventory.
 /// </summary>
-public class InventoryItem(Guid id, string name, decimal price, int quantity, StarRating starRating)
+public sealed class InventoryItem(Guid id, string name, decimal price, int quantity, StarRating starRating)
 {
     public Guid Id { get; } = id;
 

@@ -3,7 +3,7 @@
 /// <summary>
 ///     Processes a simulated ApplePay payment.
 /// </summary>
-public class ApplePayStrategy(PurchaseDetails purchase, string phoneNumber) : PaymentStrategyBase(purchase)
+public sealed class ApplePayStrategy(PurchaseDetails purchase, string phoneNumber) : PaymentStrategyBase(purchase)
 {
     private readonly string _phoneNumber = phoneNumber ?? throw new ArgumentNullException(nameof(phoneNumber));
 

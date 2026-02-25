@@ -8,12 +8,13 @@ namespace TeaShop.UserInterface;
 ///     Top-level orchestrator for the tea shop. Coordinates the
 ///     search-display-purchase loop without owning any business logic.
 /// </summary>
-public class Application(
+public sealed class Application(
     UserPrompt reader,
     InventoryQueryBuilder queryBuilder,
     InventoryQueryOutputWriter outputWriter,
     PurchaseHandler purchaseHandler,
     TextWriter writer)
+
 {
     private readonly UserPrompt _reader = reader ?? throw new ArgumentNullException(nameof(reader));
 

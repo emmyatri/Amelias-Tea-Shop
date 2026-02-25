@@ -3,7 +3,7 @@
 /// <summary>
 ///     Filters inventory items by stock availability.
 /// </summary>
-public class AvailabilityFilterDecorator(IInventoryQuery inner, bool isAvailable) : InventoryQueryDecoratorBase(inner)
+public sealed class AvailabilityFilterDecorator(IInventoryQuery inner, bool isAvailable) : InventoryQueryDecoratorBase(inner)
 {
     private readonly bool _isAvailable = isAvailable;
 

@@ -6,7 +6,7 @@ namespace TeaShop.UserInterface.PaymentBuilder;
 /// <summary>
 ///     Collects a card number and builds a <see cref="CreditCardStrategy"/>.
 /// </summary>
-public class CreditCardPaymentBuilder(UserPrompt reader, TextWriter writer) : IPaymentBuilder
+public sealed class CreditCardPaymentBuilder(UserPrompt reader, TextWriter writer) : IPaymentBuilder
 {
     public string Name => "Credit Card";
     private readonly UserPrompt _reader = reader ?? throw new ArgumentNullException(nameof(reader));

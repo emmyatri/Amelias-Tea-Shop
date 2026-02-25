@@ -4,7 +4,7 @@
 ///     Stores and manages the tea inventory. Provides read-only access
 ///     and controlled quantity updates.
 /// </summary>
-public class InventoryRepository
+public sealed class InventoryRepository
 {
     private readonly List<InventoryItem> _items;
 

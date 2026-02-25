@@ -3,7 +3,7 @@
 /// <summary>
 ///     Processes a simulated CryptoCurrency payment
 /// </summary>
-public class CryptoCurrencyStrategy(PurchaseDetails purchase, string walletNumber) : PaymentStrategyBase(purchase)
+public sealed class CryptoCurrencyStrategy(PurchaseDetails purchase, string walletNumber) : PaymentStrategyBase(purchase)
 {
     private readonly string _walletNumber = walletNumber ?? throw new ArgumentNullException(nameof(walletNumber));
 

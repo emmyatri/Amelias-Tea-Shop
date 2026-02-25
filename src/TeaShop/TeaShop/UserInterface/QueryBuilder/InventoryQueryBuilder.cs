@@ -8,7 +8,7 @@ namespace TeaShop.UserInterface.QueryBuilder;
 ///     Collects user search criteria and constructs a decorated
 ///     query pipeline of filters and sorts.
 /// </summary>
-public class InventoryQueryBuilder(UserPrompt reader, InventoryRepository repository)
+public sealed class InventoryQueryBuilder(UserPrompt reader, InventoryRepository repository)
 {
     private readonly UserPrompt _reader = reader ?? throw new ArgumentNullException(nameof(reader));
 

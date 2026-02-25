@@ -4,7 +4,7 @@
 ///     Formats and writes query results to the output stream,
 ///     including applied filters and a numbered item table.
 /// </summary>
-public class InventoryQueryOutputWriter(TextWriter writer)
+public sealed class InventoryQueryOutputWriter(TextWriter writer)
 {
     private readonly TextWriter _writer = writer ?? throw new ArgumentNullException(nameof(writer));
 
