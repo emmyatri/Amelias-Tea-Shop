@@ -4,7 +4,7 @@ namespace TeaShop.UserInterface.QueryBuilder;
 
 public class InventoryQueryOutputWriter(TextWriter writer)
 {
-    private readonly TextWriter _writer = writer;
+    private readonly TextWriter _writer = writer ?? throw new ArgumentNullException(nameof(writer));
 
     public void Write(InventoryQueryOutput output)
 
