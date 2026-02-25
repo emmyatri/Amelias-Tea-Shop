@@ -3,19 +3,11 @@
 /// <summary>
 ///     Represents a 1-5 star rating with invariant enforcement.
 /// </summary>
-public sealed class StarRating : IComparable<StarRating>
+public record StarRating(int StarValue) : IComparable<StarRating>
 {
-    public StarRating(int value)
-    {
-        if (value is < 1 or > 5)
-            throw new ArgumentOutOfRangeException(
-                nameof(value), "Star rating must be between 1 and 5.");
-
-        StarValue = value;
-    }
-
-    public int StarValue { get; }
-
+    public int StarValue { get; } = StarValue is < 1 or > 5
+        ? throw new ArgumentOutOfRangeException(nameof(StarValue), "Star rating must be between 1 and 5.")
+        : StarValue;
 
     /// <summary>
     ///     Compares two star ratings by their numeric value.
@@ -23,18 +15,6 @@ public sealed class StarRating : IComparable<StarRating>
     public int CompareTo(StarRating? other)
     {
         return other is null ? 1 : StarValue.CompareTo(other.StarValue);
-    }
-
-
-    public override bool Equals(object? obj)
-    {
-        return obj is StarRating other && StarValue == other.StarValue;
-    }
-
-
-    public override int GetHashCode()
-    {
-        return StarValue.GetHashCode();
     }
 
 

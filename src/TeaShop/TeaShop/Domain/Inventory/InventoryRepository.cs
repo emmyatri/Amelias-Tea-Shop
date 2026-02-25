@@ -81,7 +81,14 @@ public sealed class InventoryRepository
     /// </exception>
     public void UpdateQuantity(Guid id, int quantityPurchased)
     {
-        var item = _items.First(i => i.Id == id);
-        item.ReduceQuantity(quantityPurchased);
+        var index = _items.FindIndex(item => item.Id == id);
+        if (index == -1) throw new ArgumentException("Item not found", nameof(id));
+        
+        var current = _items[index];
+        var newQuantity = current.Quantity - quantityPurchased;
+        
+        if (newQuantity < 0) throw new InvalidOperationException("\nNot enough in stock.\n");
+        
+        _items[index] = current with { Quantity = newQuantity };
     }
 }
