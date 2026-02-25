@@ -2,6 +2,10 @@
 
 namespace TeaShop.Domain.InventoryQuery;
 
+
+/// <summary>
+///     Filters inventory items that meet or exceed a minimum star rating.
+/// </summary>
 public class MinStarRatingFilterDecorator(IInventoryQuery inner, StarRating searchStarRatingMin)
     : InventoryQueryDecoratorBase(inner)
 {

@@ -1,5 +1,9 @@
 ﻿namespace TeaShop.Domain.InventoryQuery;
 
+
+/// <summary>
+///     Sorts inventory items by price in the specified direction.
+/// </summary>
 public class SortByPriceDecorator(IInventoryQuery inner, SortDirection priceDirection)
     : InventoryQueryDecoratorBase(inner)
 {

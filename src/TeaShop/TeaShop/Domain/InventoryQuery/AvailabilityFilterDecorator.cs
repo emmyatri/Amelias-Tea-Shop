@@ -1,5 +1,9 @@
 ﻿namespace TeaShop.Domain.InventoryQuery;
 
+
+/// <summary>
+///     Filters inventory items by stock availability.
+/// </summary>
 public class AvailabilityFilterDecorator(IInventoryQuery inner, bool isAvailable) : InventoryQueryDecoratorBase(inner)
 {
     private readonly bool _isAvailable = isAvailable;

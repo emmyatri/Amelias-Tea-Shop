@@ -1,5 +1,9 @@
 ﻿namespace TeaShop.Domain.InventoryQuery;
 
+
+/// <summary>
+///     Filters inventory items within a minimum and maximum price range (inclusive).
+/// </summary>
 public class PriceRangeFilterDecorator(IInventoryQuery inner, decimal searchPriceMin, decimal searchPriceMax)
     : InventoryQueryDecoratorBase(inner)
 {
