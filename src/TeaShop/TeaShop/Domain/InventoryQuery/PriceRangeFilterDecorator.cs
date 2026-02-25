@@ -15,6 +15,6 @@ public sealed class PriceRangeFilterDecorator(IInventoryQuery inner, decimal sea
     protected override IReadOnlyList<QueriedInventoryItem> Decorate(IReadOnlyList<QueriedInventoryItem> items)
     {
         return items.Where(item =>
-            item.Item.Price >= _searchPriceMin && item.Item.Price <= _searchPriceMax).ToList();
+            item.Price >= _searchPriceMin && item.Price <= _searchPriceMax).ToList();
     }
 }

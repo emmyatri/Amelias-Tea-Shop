@@ -14,6 +14,6 @@ public sealed class AvailabilityFilterDecorator(IInventoryQuery inner, bool isAv
 
     protected override IReadOnlyList<QueriedInventoryItem> Decorate(IReadOnlyList<QueriedInventoryItem> items)
     {
-        return items.Where(item => item.Item.Quantity > 0 == _isAvailable).ToList();
+        return items.Where(item => item.Quantity > 0 == _isAvailable).ToList();
     }
 }

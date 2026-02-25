@@ -18,6 +18,6 @@ public sealed class MinStarRatingFilterDecorator(IInventoryQuery inner, StarRati
     protected override IReadOnlyList<QueriedInventoryItem> Decorate(IReadOnlyList<QueriedInventoryItem> items)
     {
         return items.Where(item =>
-            item.Item.StarRating.CompareTo(_searchStarRatingMin) >= 0).ToList();
+            item.StarRating.CompareTo(_searchStarRatingMin) >= 0).ToList();
     }
 }

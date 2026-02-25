@@ -14,8 +14,8 @@ public sealed class SortByPriceDecorator(IInventoryQuery inner, SortDirection pr
     protected override IReadOnlyList<QueriedInventoryItem> Decorate(IReadOnlyList<QueriedInventoryItem> items)
     {
         if (_priceDirection == SortDirection.Ascending)
-            return items.OrderBy(item => item.Item.Price).ToList();
+            return items.OrderBy(item => item.Price).ToList();
         
-        return  items.OrderByDescending(item => item.Item.Price).ToList();
+        return  items.OrderByDescending(item => item.Price).ToList();
     }
 }

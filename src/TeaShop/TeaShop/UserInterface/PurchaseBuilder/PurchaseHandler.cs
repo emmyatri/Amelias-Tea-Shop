@@ -30,7 +30,7 @@ public sealed class PurchaseHandler(
             0, 0, output.Items.Count);
         if (itemIndex == 0) return;
 
-        var selectedItem = output.Items[itemIndex - 1].Item;
+        var selectedItem = output.Items[itemIndex - 1];
 
         if (selectedItem.Quantity == 0)
         {

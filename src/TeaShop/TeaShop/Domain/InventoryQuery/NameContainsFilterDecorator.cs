@@ -14,6 +14,6 @@ public sealed class NameContainsFilterDecorator(IInventoryQuery inner, string se
     protected override IReadOnlyList<QueriedInventoryItem> Decorate(IReadOnlyList<QueriedInventoryItem> items)
     {
         return items.Where(item => 
-            item.Item.Name.Contains(_searchText, StringComparison.OrdinalIgnoreCase)).ToList();
+            item.Name.Contains(_searchText, StringComparison.OrdinalIgnoreCase)).ToList();
     }
 }

@@ -14,8 +14,8 @@ public sealed class SortByStarRatingDecorator(IInventoryQuery inner, SortDirecti
     protected override IReadOnlyList<QueriedInventoryItem> Decorate(IReadOnlyList<QueriedInventoryItem> items)
     {
         if (_starDirection == SortDirection.Ascending)
-            return items.OrderBy(item => item.Item.StarRating).ToList();
+            return items.OrderBy(item => item.StarRating).ToList();
         
-        return  items.OrderByDescending(item => item.Item.StarRating).ToList();
+        return  items.OrderByDescending(item => item.StarRating).ToList();
     }
 }

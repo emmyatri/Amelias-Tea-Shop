@@ -16,7 +16,7 @@ public sealed class AllInventoryQuery(InventoryRepository stock) : IInventoryQue
     public IReadOnlyList<QueriedInventoryItem> Execute()
     {
         return
-            _stock.Items.Select(item =>
-                new QueriedInventoryItem(item)).ToList();
+            _stock.Items.Select((item, index) =>
+                new QueriedInventoryItem(index + 1, item)).ToList();
     }
 }
