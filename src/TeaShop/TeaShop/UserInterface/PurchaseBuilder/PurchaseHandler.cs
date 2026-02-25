@@ -16,7 +16,8 @@ public class PurchaseHandler(QueryInputReader reader, PaymentHandler paymentHand
     public void TryPurchase(InventoryQueryOutput output)
     {
         var itemIndex = _reader.ReadInt(
-            $"Purchase an item? Enter item number 1 - {output.Items.Count} or 0 to continue", 0);
+            $"Purchase an item? Enter item number 1 - {output.Items.Count} or 0 to continue", 
+            0, 0, output.Items.Count);
         if (itemIndex == 0) return;
         
         var selectedItem =  output.Items[itemIndex-1].Item;
@@ -28,7 +29,8 @@ public class PurchaseHandler(QueryInputReader reader, PaymentHandler paymentHand
             return;
         }
         
-        var quantity = ReadValidQuantity(selectedItem);
+        var quantity = _reader.ReadInt($"Quantity for \"{selectedItem.Name}\" (1 - {selectedItem.Quantity}): ", 
+            0, 1, selectedItem.Quantity);
         var totalPrice = selectedItem.Price * quantity;
         
         _writer.WriteLine();
@@ -38,19 +40,5 @@ public class PurchaseHandler(QueryInputReader reader, PaymentHandler paymentHand
         _repository.UpdateQuantity(selectedItem.Id, quantity);
     }
 
-    private int ReadValidQuantity(InventoryItem item)
-    {
-        int quantity;
-
-        do
-        {
-            quantity = _reader.ReadInt($"Quantity for \"{item.Name}\" (1 - {item.Quantity}): ", 0);
-            if (quantity < 1 || quantity > item.Quantity)
-            {
-                _writer.WriteLine($"Invalid selection. Quantity must be between 1 and {item.Quantity}. Re-enter quantity \n");
-            }
-        } while (quantity < 1 || quantity > item.Quantity);
-        
-        return quantity;
-    }
+    
 }

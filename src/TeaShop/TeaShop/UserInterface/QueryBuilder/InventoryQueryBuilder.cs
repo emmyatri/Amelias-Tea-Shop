@@ -57,8 +57,8 @@ public class InventoryQueryBuilder(QueryInputReader reader, InventoryRepository 
 
     private QueryContext ApplyStarRatingFilter(QueryContext ctx)
     {
-        var min = _reader.ReadInt("* Star rating minimum (1-5, default 3): ", 3);
-        var max = _reader.ReadInt("* Star rating maximum (1-5, default 5): ", 5);
+        var min = _reader.ReadInt("* Star rating minimum (1-5, default 3): ", 3, 1, 5);
+        var max = _reader.ReadInt("* Star rating maximum (1-5, default 5): ", 5, 1, 5);
         
         ctx.AppliedFilters.Add($"Filter star rating between {min} and {max}");
         
