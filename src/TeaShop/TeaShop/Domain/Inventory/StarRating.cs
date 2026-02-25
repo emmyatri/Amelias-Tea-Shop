@@ -17,6 +17,9 @@ public class StarRating : IComparable<StarRating>
     public int StarValue { get; }
 
 
+    /// <summary>
+    ///     Compares two star ratings by their numeric value.
+    /// </summary>
     public int CompareTo(StarRating? other)
     {
         return other is null ? 1 : StarValue.CompareTo(other.StarValue);
@@ -35,6 +38,9 @@ public class StarRating : IComparable<StarRating>
     }
 
 
+    /// <summary>
+    ///     Returns a string of ★ characters matching the rating value.
+    /// </summary>
     public override string ToString()
     {
         return new string('★', StarValue);
