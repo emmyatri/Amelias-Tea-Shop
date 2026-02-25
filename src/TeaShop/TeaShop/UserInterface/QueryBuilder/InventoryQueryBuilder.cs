@@ -33,7 +33,7 @@ public sealed class InventoryQueryBuilder(UserPrompt reader, InventoryRepository
     private QueryContext ApplyNameFilter(QueryContext ctx)
     {
         var name = _reader.ReadString("*Tea name contains (leave blank for all names): ");
-        if (name == "") return ctx;
+        if (string.IsNullOrWhiteSpace(name)) return ctx;
 
         ctx.AppliedFilters.Add($"Filter: Name contains \"{name}\"");
         return new QueryContext(new NameContainsFilterDecorator(ctx.Query, name), ctx.AppliedFilters);
