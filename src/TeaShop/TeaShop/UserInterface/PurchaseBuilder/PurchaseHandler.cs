@@ -1,9 +1,13 @@
 ﻿using TeaShop.Domain.Inventory;
-using TeaShop.Domain.Payment;
 using TeaShop.UserInterface.QueryBuilder;
 
 namespace TeaShop.UserInterface.PurchaseBuilder;
 
+
+/// <summary>
+///     Handles the purchase flow: item selection, quantity input,
+///     price calculation, and payment delegation.
+/// </summary>
 public class PurchaseHandler(UserPrompt reader, PaymentHandler paymentHandler, 
     InventoryRepository repository, TextWriter writer)
 {

@@ -4,6 +4,11 @@ using TeaShop.UserInterface.QueryBuilder;
 
 namespace TeaShop.UserInterface.PurchaseBuilder;
 
+
+/// <summary>
+///     Displays available payment methods, collects the user's selection,
+///     and delegates checkout to the chosen payment builder.
+/// </summary>
 public class PaymentHandler(UserPrompt reader, TextWriter writer)
 {
     private readonly UserPrompt _reader = reader ?? throw new ArgumentNullException(nameof(reader));
