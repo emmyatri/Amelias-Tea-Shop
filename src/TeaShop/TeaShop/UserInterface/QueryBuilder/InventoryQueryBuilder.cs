@@ -73,7 +73,7 @@ public class InventoryQueryBuilder(UserPrompt reader, InventoryRepository reposi
 
             if (min > max)
             {
-                reader.WriteMessage("\nMinimum star rating cannot exceed maximum. Please re-enter\n");
+                _reader.WriteMessage("\nMinimum star rating cannot exceed maximum. Please re-enter\n");
             }
         } while (min > max);
         
