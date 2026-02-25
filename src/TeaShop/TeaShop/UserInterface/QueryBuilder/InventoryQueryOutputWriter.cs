@@ -1,7 +1,9 @@
-﻿using TeaShop.Domain.InventoryQuery;
+﻿namespace TeaShop.UserInterface.QueryBuilder;
 
-namespace TeaShop.UserInterface.QueryBuilder;
-
+/// <summary>
+///     Formats and writes query results to the output stream,
+///     including applied filters and a numbered item table.
+/// </summary>
 public class InventoryQueryOutputWriter(TextWriter writer)
 {
     private readonly TextWriter _writer = writer ?? throw new ArgumentNullException(nameof(writer));

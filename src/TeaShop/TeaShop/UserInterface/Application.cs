@@ -1,10 +1,13 @@
-﻿using TeaShop.Domain.Inventory;
-using TeaShop.UserInterface.QueryBuilder;
-using TeaShop.UserInterface.PaymentBuilder;
+﻿using TeaShop.UserInterface.QueryBuilder;
 using TeaShop.UserInterface.PurchaseBuilder;
 
 namespace TeaShop.UserInterface;
 
+
+/// <summary>
+///     Top-level orchestrator for the tea shop. Coordinates the
+///     search-display-purchase loop without owning any business logic.
+/// </summary>
 public class Application(
     UserPrompt reader,
     InventoryQueryBuilder queryBuilder,

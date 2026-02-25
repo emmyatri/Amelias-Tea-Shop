@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace TeaShop.UserInterface.QueryBuilder;
+﻿namespace TeaShop.UserInterface.QueryBuilder;
 
 public class UserPrompt(TextReader reader, TextWriter writer)
 {
