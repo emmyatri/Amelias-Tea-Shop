@@ -4,7 +4,6 @@ using TeaShop.UserInterface.QueryBuilder;
 
 namespace TeaShop.UserInterface.PurchaseBuilder;
 
-
 /// <summary>
 ///     Displays available payment methods, collects the user's selection,
 ///     and delegates checkout to the chosen payment builder.
@@ -22,10 +21,7 @@ public class PaymentHandler(UserPrompt reader, TextWriter writer)
 
         _writer.WriteLine();
         _writer.WriteLine("*** Choose a payment method: ");
-        for (var i = 0; i < builder.Count; i++)
-        {
-            _writer.WriteLine($"{i + 1}. {builder[i].Name}");
-        }
+        for (var i = 0; i < builder.Count; i++) _writer.WriteLine($"{i + 1}. {builder[i].Name}");
         _writer.WriteLine();
 
 

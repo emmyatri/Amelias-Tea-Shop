@@ -5,13 +5,24 @@ using TeaShop.UserInterface.PurchaseBuilder;
 
 namespace TeaShop.UserInterface;
 
-public class Application(UserPrompt reader, InventoryQueryBuilder queryBuilder,
-    InventoryQueryOutputWriter outputWriter, PurchaseHandler purchaseHandler, TextWriter writer)
+public class Application(
+    UserPrompt reader,
+    InventoryQueryBuilder queryBuilder,
+    InventoryQueryOutputWriter outputWriter,
+    PurchaseHandler purchaseHandler,
+    TextWriter writer)
 {
     private readonly UserPrompt _reader = reader ?? throw new ArgumentNullException(nameof(reader));
-    private readonly InventoryQueryBuilder _queryBuilder = queryBuilder ?? throw new ArgumentNullException(nameof(queryBuilder));
-    private readonly InventoryQueryOutputWriter _outputWriter = outputWriter ?? throw new ArgumentNullException(nameof(outputWriter));
-    private readonly PurchaseHandler _purchaseHandler = purchaseHandler ?? throw new ArgumentNullException(nameof(purchaseHandler));
+
+    private readonly InventoryQueryBuilder _queryBuilder =
+        queryBuilder ?? throw new ArgumentNullException(nameof(queryBuilder));
+
+    private readonly InventoryQueryOutputWriter _outputWriter =
+        outputWriter ?? throw new ArgumentNullException(nameof(outputWriter));
+
+    private readonly PurchaseHandler _purchaseHandler =
+        purchaseHandler ?? throw new ArgumentNullException(nameof(purchaseHandler));
+
     private readonly TextWriter _writer = writer ?? throw new ArgumentNullException(nameof(writer));
 
 
@@ -28,7 +39,7 @@ public class Application(UserPrompt reader, InventoryQueryBuilder queryBuilder,
         {
             var output = _queryBuilder.Build();
             _outputWriter.Write(output);
-            
+
             if (output.Items.Count > 0)
                 _purchaseHandler.TryPurchase(output);
 

@@ -2,7 +2,6 @@
 
 namespace TeaShop.UserInterface.PaymentBuilder;
 
-
 /// <summary>
 ///     Creates the list of available payment builders.
 ///     Add new payment methods here without modifying existing builders (OCP).

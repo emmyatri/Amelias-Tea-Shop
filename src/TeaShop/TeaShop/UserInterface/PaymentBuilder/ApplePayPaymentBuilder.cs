@@ -3,7 +3,6 @@ using TeaShop.UserInterface.QueryBuilder;
 
 namespace TeaShop.UserInterface.PaymentBuilder;
 
-
 /// <summary>
 ///     Collects a phone number and builds an <see cref="ApplePayStrategy"/>.
 /// </summary>
@@ -20,12 +19,9 @@ public class ApplePayPaymentBuilder(UserPrompt reader, TextWriter writer) : IPay
         do
         {
             phoneNumber = _reader.ReadString("Enter ApplePay Phone Number: ");
-            if (phoneNumber.Length < 10)
-            {
-                _writer.Write("Invalid Phone Number. Please enter a valid Phone Number: ");
-            }
+            if (phoneNumber.Length < 10) _writer.Write("Invalid Phone Number. Please enter a valid Phone Number: ");
         } while (phoneNumber.Length < 10);
-        
+
         return new ApplePayStrategy(purchase, phoneNumber);
     }
 }

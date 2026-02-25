@@ -1,6 +1,5 @@
 ﻿namespace TeaShop.Domain.InventoryQuery;
 
-
 /// <summary>
 ///     Filters inventory items whose name contains the search text (case-insensitive).
 /// </summary>

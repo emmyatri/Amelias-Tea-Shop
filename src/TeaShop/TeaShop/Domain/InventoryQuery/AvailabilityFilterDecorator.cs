@@ -1,6 +1,5 @@
 ﻿namespace TeaShop.Domain.InventoryQuery;
 
-
 /// <summary>
 ///     Filters inventory items by stock availability.
 /// </summary>

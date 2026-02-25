@@ -2,15 +2,17 @@
 
 namespace TeaShop.Domain.InventoryQuery;
 
-
 /// <summary>
 ///     Filters inventory items within a minimum and maximum star rating range (inclusive).
 /// </summary>
 public class StarRatingRangeFilterDecorator(IInventoryQuery inner, StarRating searchRangeMin, StarRating searchRangeMax)
     : InventoryQueryDecoratorBase(inner)
 {
-    private readonly StarRating _searchRangeMax = searchRangeMax ?? throw new ArgumentNullException(nameof(searchRangeMax));
-    private readonly StarRating _searchRangeMin = searchRangeMin ?? throw new ArgumentNullException(nameof(searchRangeMin));
+    private readonly StarRating _searchRangeMax =
+        searchRangeMax ?? throw new ArgumentNullException(nameof(searchRangeMax));
+
+    private readonly StarRating _searchRangeMin =
+        searchRangeMin ?? throw new ArgumentNullException(nameof(searchRangeMin));
 
     public override IReadOnlyList<QueriedInventoryItem> Execute()
     {

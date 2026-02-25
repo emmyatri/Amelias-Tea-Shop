@@ -1,6 +1,5 @@
 ﻿namespace TeaShop.Domain.InventoryQuery;
 
-
 /// <summary>
 ///     Base class for all query decorators. Wraps an inner query
 ///     and delegates execution to subclasses for filtering or sorting.

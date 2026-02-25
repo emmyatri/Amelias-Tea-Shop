@@ -1,6 +1,5 @@
 ﻿namespace TeaShop.Domain.InventoryQuery;
 
-
 /// <summary>
 ///     Sorts inventory items by price in the specified direction.
 /// </summary>

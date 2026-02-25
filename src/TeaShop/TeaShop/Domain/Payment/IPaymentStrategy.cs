@@ -1,6 +1,5 @@
 ﻿namespace TeaShop.Domain.Payment;
 
-
 /// <summary>
 ///     Defines a payment method using the Strategy pattern.
 ///     Each implementation handles a specific payment type.

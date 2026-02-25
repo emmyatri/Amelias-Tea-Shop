@@ -1,6 +1,5 @@
 ﻿namespace TeaShop.Domain.InventoryQuery;
 
-
 /// <summary>
 ///     Filters inventory items within a minimum and maximum price range (inclusive).
 /// </summary>

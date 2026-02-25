@@ -1,6 +1,5 @@
 ﻿namespace TeaShop.Domain.InventoryQuery;
 
-
 /// <summary>
 ///     Defines a composable inventory query. Implementations can be
 ///     chained using the Decorator pattern to build filter/sort pipelines.

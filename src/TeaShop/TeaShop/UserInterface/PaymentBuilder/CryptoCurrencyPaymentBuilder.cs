@@ -3,7 +3,6 @@ using TeaShop.UserInterface.QueryBuilder;
 
 namespace TeaShop.UserInterface.PaymentBuilder;
 
-
 /// <summary>
 ///     Collects a wallet number and builds a <see cref="CryptoCurrencyStrategy"/>.
 /// </summary>
@@ -20,13 +19,9 @@ public class CryptoCurrencyPaymentBuilder(UserPrompt reader, TextWriter writer) 
         do
         {
             walletNumber = _reader.ReadString("Enter CryptoCurrency Wallet Number: ");
-            if (walletNumber.Length < 6)
-            {
-                _writer.Write("Invalid Wallet Number. Please enter a valid Wallet Number: ");
-            }
+            if (walletNumber.Length < 6) _writer.Write("Invalid Wallet Number. Please enter a valid Wallet Number: ");
         } while (walletNumber.Length < 6);
-        
+
         return new CryptoCurrencyStrategy(purchase, walletNumber);
     }
-    
 }
