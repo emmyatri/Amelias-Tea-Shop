@@ -25,7 +25,7 @@ public sealed class PaymentHandler(UserPrompt reader, TextWriter writer)
         _writer.WriteLine();
 
 
-        var selection = _reader.ReadInt("Selection: ", 1);
+        var selection = _reader.ReadInt("Selection: ", 1, 1, builder.Count);
         var purchase = new PurchaseDetails(totalPrice, itemName, quantity);
         var strategy = builder[selection - 1].Build(purchase);
         _writer.WriteLine(strategy.Checkout());
