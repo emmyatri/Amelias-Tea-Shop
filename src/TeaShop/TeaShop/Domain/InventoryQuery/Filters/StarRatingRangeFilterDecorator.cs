@@ -22,7 +22,7 @@ public sealed class StarRatingRangeFilterDecorator : InventoryQueryDecoratorBase
     }
     
     protected override FilterDescription? AppliedDescription
-        => new("Filter", $"Star rating between {_searchRangeMin.StarValue} and {_searchRangeMax.StarValue}");
+        => new(FilterType.Filter, $"Star rating between {_searchRangeMin.StarValue} and {_searchRangeMax.StarValue}");
 
     protected override IReadOnlyList<InventoryItem> Decorate(IReadOnlyList<InventoryItem> items)
     {

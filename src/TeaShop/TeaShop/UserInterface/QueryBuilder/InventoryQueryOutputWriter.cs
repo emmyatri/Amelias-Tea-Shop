@@ -29,10 +29,9 @@ public sealed class InventoryQueryOutputWriter(TextWriter writer)
 
         var maxNameLength = output.Items.Max(i => i.Name.Length) + 2;
 
-        for (var i = 0; i < output.Items.Count; i++)
+        foreach (var item in output.Items)
         {
-            var item = output.Items[i];
-            var quantity = item.Quantity > 0 ? $"\tQty: {item.Quantity,-4}" : "(OUT OF STOCK)";
+            var quantity = item.Quantity > 0 ? $"Qty: {item.Quantity,-4}" : "(OUT OF STOCK)";
             _writer.WriteLine(
                 $"{item.Index,2}. {item.Name.PadRight(maxNameLength)} {item.Price,15:C} {quantity,-15} {item.StarRating}");
         }

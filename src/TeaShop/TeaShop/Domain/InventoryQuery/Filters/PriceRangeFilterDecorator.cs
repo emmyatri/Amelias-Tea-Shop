@@ -26,7 +26,7 @@ public sealed class PriceRangeFilterDecorator : InventoryQueryDecoratorBase
    
 
     protected override FilterDescription? AppliedDescription
-        => new("Filter", $"Price range between {_searchPriceMin:C} and {_searchPriceMax:C}");
+        => new(FilterType.Filter, $"Price range between {_searchPriceMin:C} and {_searchPriceMax:C}");
 
     protected override IReadOnlyList<InventoryItem> Decorate(IReadOnlyList<InventoryItem> items)
     {

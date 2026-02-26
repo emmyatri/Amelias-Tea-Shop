@@ -10,7 +10,7 @@ public sealed class AvailabilityFilterDecorator(IInventoryQuery inner, bool isAv
     private readonly bool _isAvailable = isAvailable;
 
     protected override FilterDescription? AppliedDescription
-        => new("Filter", _isAvailable
+        => new(FilterType.Filter, _isAvailable
             ? "Availability = In Stock (Quantity > 0)"
             : "Availability = Out of Stock (Quantity = 0)");
 

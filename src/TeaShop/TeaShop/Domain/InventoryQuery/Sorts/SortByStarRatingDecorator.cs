@@ -11,7 +11,7 @@ public sealed class SortByStarRatingDecorator(IInventoryQuery inner, SortDirecti
     private readonly SortDirection _starDirection = starDirection;
 
     protected override FilterDescription? AppliedDescription
-        => new("Sort", $"Star Rating ({_starDirection.ToString().ToLower()})");
+        => new(FilterType.Sort, $"Star Rating ({_starDirection.ToString().ToLower()})");
 
     protected override IReadOnlyList<InventoryItem> Decorate(IReadOnlyList<InventoryItem> items)
     {
