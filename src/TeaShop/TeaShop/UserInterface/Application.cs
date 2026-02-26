@@ -51,7 +51,7 @@ public sealed class Application
             if (output.Items.Count > 0)
                 _purchaseHandler.Handle(output);
 
-            searchAgain = _reader.ReadChoice("Search for more tea? (Y/N, default Y)", "Y") != "N";
+            searchAgain = _reader.ReadChoice("\nSearch for more tea? (Y/N, default Y): ", "Y") != "N";
         }
     }
     

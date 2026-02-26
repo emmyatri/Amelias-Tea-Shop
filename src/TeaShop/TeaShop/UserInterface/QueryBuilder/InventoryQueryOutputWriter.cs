@@ -25,7 +25,7 @@ public sealed class InventoryQueryOutputWriter(TextWriter writer)
             return;
         }
 
-        _writer.WriteLine($"{output.Items.Count} items matched your query: ");
+        _writer.WriteLine($"{output.Items.Count} items matched your query: \n");
 
         var maxNameLength = output.Items.Max(i => i.Name.Length) + 2;
 
