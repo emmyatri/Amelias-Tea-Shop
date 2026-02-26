@@ -5,7 +5,11 @@
 /// </summary>
 public record InventoryItem(Guid Id, 
                             string Name, 
-                            bool IsAvailable,
                             decimal Price, 
                             int Quantity, 
-                            StarRating StarRating);
+                            StarRating StarRating)
+
+{
+    public bool IsAvailable => Quantity > 0;
+    
+}

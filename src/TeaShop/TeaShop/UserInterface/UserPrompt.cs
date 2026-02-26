@@ -1,4 +1,4 @@
-﻿namespace TeaShop.UserInterface.QueryBuilder;
+﻿namespace TeaShop.UserInterface;
 
 
 /// <summary>

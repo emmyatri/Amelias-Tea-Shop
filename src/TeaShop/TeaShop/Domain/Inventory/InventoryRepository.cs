@@ -79,16 +79,18 @@ public sealed class InventoryRepository
     /// <exception cref="InvalidOperationException">
     ///     Thrown when the purchase amount exceeds available stock.
     /// </exception>
-    public void UpdateQuantity(Guid id, int quantityPurchased)
+    public void DecreaseQuantity(Guid id, int amount)
     {
+        if (amount < 0) throw new ArgumentOutOfRangeException(nameof(amount), "Amount must be non-negative.");
+    
         var index = _items.FindIndex(item => item.Id == id);
-        if (index == -1) throw new ArgumentException("Item not found", nameof(id));
-        
+        if (index == -1) throw new ArgumentException("Item not found.", nameof(id));
+
         var current = _items[index];
-        var newQuantity = current.Quantity - quantityPurchased;
-        
-        if (newQuantity < 0) throw new InvalidOperationException("\nNot enough in stock.\n");
-        
+        var newQuantity = current.Quantity - amount;
+
+        if (newQuantity < 0) throw new InvalidOperationException("Insufficient inventory.");
+
         _items[index] = current with { Quantity = newQuantity };
     }
 }

@@ -1,24 +1,23 @@
-﻿namespace TeaShop.Domain.Payment;
+﻿using TeaShop.Domain.Inventory;
+
+namespace TeaShop.Domain.Payment;
 
 /// <summary>
 ///     Base class for all payment strategies. Holds shared purchase
 ///     details and provides a common confirmation message format.
 /// </summary>
-public abstract class PaymentStrategyBase(PurchaseDetails purchase) : IPaymentStrategy
+public abstract class PaymentStrategyBase : IPaymentStrategy
 {
-    protected readonly PurchaseDetails _purchase = purchase ?? throw new ArgumentNullException(nameof(purchase));
 
-    public abstract string Checkout();
+    public abstract void Checkout(InventoryItem item, int quantity, TextWriter writer);
 
 
     /// <summary>
     ///     Builds a standardized checkout confirmation message
     ///     using the provided payment-specific detail.
     /// </summary>
-    protected string FormatConfirmation(string paymentDetail)
+    protected void WritePaymentDetail(TextWriter writer, string paymentDetail)
     {
-        return $"*** Total Price: {_purchase.Price:C} ***\n" +
-               $"*** Purchase complete via {paymentDetail}. " +
-               $"Your package of {_purchase.Quantity} {_purchase.ItemName} is on the way ***";
+        writer.WriteLine($"*** Paid via {paymentDetail} ***");
     }
 }

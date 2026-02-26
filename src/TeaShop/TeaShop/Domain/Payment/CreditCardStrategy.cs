@@ -1,15 +1,17 @@
-﻿namespace TeaShop.Domain.Payment;
+﻿using TeaShop.Domain.Inventory;
+
+namespace TeaShop.Domain.Payment;
 
 /// <summary>
 ///     Processes a simulated Credit Card payment
 /// </summary>
-public sealed class CreditCardStrategy(PurchaseDetails purchase, string creditCardNumber) : PaymentStrategyBase(purchase)
+public sealed class CreditCardStrategy(string creditCardNumber) : PaymentStrategyBase
 {
     private readonly string _creditCardNumber =
         creditCardNumber ?? throw new ArgumentNullException(nameof(creditCardNumber));
 
-    public override string Checkout()
+    public override void Checkout(InventoryItem item, int quantity, TextWriter output)
     {
-        return FormatConfirmation($"Credit Card ending in [{_creditCardNumber[^4..]}]");
+        WritePaymentDetail(output, $"Credit Card ending in [{_creditCardNumber[^4..]}]");
     }
 }

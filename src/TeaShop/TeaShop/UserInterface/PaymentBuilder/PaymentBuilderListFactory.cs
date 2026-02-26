@@ -1,20 +1,18 @@
-﻿using TeaShop.UserInterface.QueryBuilder;
-
-namespace TeaShop.UserInterface.PaymentBuilder;
+﻿namespace TeaShop.UserInterface.PaymentBuilder;
 
 /// <summary>
 ///     Creates the list of available payment builders.
 ///     Add new payment methods here without modifying existing builders (OCP).
 /// </summary>
-public sealed class PaymentBuilderListFactory
+public static class PaymentBuilderListFactory
 {
-    public IReadOnlyList<IPaymentBuilder> Create(UserPrompt reader, TextWriter writer)
+    public static IReadOnlyList<IPaymentBuilder> Create()
     {
         return new List<IPaymentBuilder>
         {
-            new CreditCardPaymentBuilder(reader, writer),
-            new ApplePayPaymentBuilder(reader, writer),
-            new CryptoCurrencyPaymentBuilder(reader, writer)
+            new CreditCardPaymentBuilder(),
+            new ApplePayPaymentBuilder(),
+            new CryptoCurrencyPaymentBuilder()
         };
     }
 }
