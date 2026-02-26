@@ -11,5 +11,12 @@ public record InventoryItem(Guid Id,
 
 {
     public bool IsAvailable => Quantity > 0;
+
+    public decimal PriceFor(int quantity)
+    {
+        if (quantity <= 0)
+            throw new ArgumentOutOfRangeException(nameof(quantity), "Quantity must be greater than zero.");
+        return quantity * Price;
+    }
     
 }

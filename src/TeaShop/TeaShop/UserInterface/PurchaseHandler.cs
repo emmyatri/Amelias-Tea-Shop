@@ -49,7 +49,7 @@ public sealed class PurchaseHandler(
     private void ProcessCheckout(QueriedInventoryItem item, int quantity)
     {
         _writer.WriteLine();
-        _writer.WriteLine($"*** Total Price: {item.Price * quantity:C} ***");
+        _writer.WriteLine($"*** Total Price: {item.PriceFor(quantity):C} ***");
         _writer.WriteLine("*** Choose a payment method: ");
         for (var i = 0; i < _paymentMethods.Count; i++)
             _writer.WriteLine($"{i + 1}. {_paymentMethods[i].Name}");

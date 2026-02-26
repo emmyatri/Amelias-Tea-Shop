@@ -13,10 +13,8 @@ public abstract class PaymentStrategyBase : IPaymentStrategy
     public PaymentResult Checkout(InventoryItem item, int quantity)
     {
         ArgumentNullException.ThrowIfNull(item);
-        if (quantity <= 0)
-            throw new ArgumentException("Quantity must be greater than zero");
         
-        var total = item.Price * quantity;
+        var total = item.PriceFor(quantity);
         var detail = GetPaymentDetail();
         return new PaymentResult(total, detail);
     }
