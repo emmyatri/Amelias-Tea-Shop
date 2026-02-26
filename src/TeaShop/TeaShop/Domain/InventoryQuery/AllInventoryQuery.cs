@@ -13,10 +13,8 @@ public sealed class AllInventoryQuery(InventoryRepository stock) : IInventoryQue
 
     public IReadOnlyList<FilterDescription> AppliedFiltersAndSorts { get; } = [];
 
-    public IReadOnlyList<QueriedInventoryItem> Execute()
+    public IReadOnlyList<InventoryItem> Execute()
     {
-        return
-            _stock.Items.Select((item, index) =>
-                new QueriedInventoryItem(index + 1, item)).ToList();
+        return _stock.Items;
     }
 }

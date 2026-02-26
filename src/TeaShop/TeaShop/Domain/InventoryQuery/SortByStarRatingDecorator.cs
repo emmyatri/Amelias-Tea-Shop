@@ -1,4 +1,6 @@
-﻿namespace TeaShop.Domain.InventoryQuery;
+﻿using TeaShop.Domain.Inventory;
+
+namespace TeaShop.Domain.InventoryQuery;
 
 /// <summary>
 ///     Sorts inventory items by star rating in the specified direction.
@@ -11,7 +13,7 @@ public sealed class SortByStarRatingDecorator(IInventoryQuery inner, SortDirecti
     protected override FilterDescription? AppliedDescription
         => new("Sort", $"Star Rating ({_starDirection.ToString().ToLower()})");
 
-    protected override IReadOnlyList<QueriedInventoryItem> Decorate(IReadOnlyList<QueriedInventoryItem> items)
+    protected override IReadOnlyList<InventoryItem> Decorate(IReadOnlyList<InventoryItem> items)
     {
         if (_starDirection == SortDirection.Ascending)
             return items.OrderBy(item => item.StarRating).ToList();

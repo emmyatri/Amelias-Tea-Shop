@@ -1,4 +1,6 @@
-﻿namespace TeaShop.Domain.InventoryQuery;
+﻿using TeaShop.Domain.Inventory;
+
+namespace TeaShop.Domain.InventoryQuery;
 
 /// <summary>
 ///     Filters inventory items within a minimum and maximum price range (inclusive).
@@ -12,7 +14,7 @@ public sealed class PriceRangeFilterDecorator(IInventoryQuery inner, decimal sea
     protected override FilterDescription? AppliedDescription
         => new("Filter", $"Price range between {_searchPriceMin:C} and {_searchPriceMax:C}");
 
-    protected override IReadOnlyList<QueriedInventoryItem> Decorate(IReadOnlyList<QueriedInventoryItem> items)
+    protected override IReadOnlyList<InventoryItem> Decorate(IReadOnlyList<InventoryItem> items)
     {
         return items.Where(item =>
             item.Price >= _searchPriceMin && item.Price <= _searchPriceMax).ToList();

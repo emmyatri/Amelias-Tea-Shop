@@ -15,7 +15,7 @@ public sealed class InventoryQueryBuilder(UserPrompt reader, InventoryRepository
     private readonly InventoryRepository
         _repository = repository ?? throw new ArgumentNullException(nameof(repository));
 
-    public InventoryQueryOutput Build()
+    public IInventoryQuery Build()
     {
         IInventoryQuery query = new AllInventoryQuery(_repository);
 
@@ -26,9 +26,7 @@ public sealed class InventoryQueryBuilder(UserPrompt reader, InventoryRepository
         query = ApplyPriceSort(query);
         query = ApplyStarRatingSort(query);
 
-        var results = query.Execute();
-
-        return new InventoryQueryOutput(results.ToList(), query.AppliedFiltersAndSorts);
+        return query;
     }
 
     private IInventoryQuery ApplyNameFilter(IInventoryQuery query)

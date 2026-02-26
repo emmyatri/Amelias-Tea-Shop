@@ -17,7 +17,7 @@ public sealed class StarRatingRangeFilterDecorator(IInventoryQuery inner, StarRa
     protected override FilterDescription? AppliedDescription
         => new("Filter", $"Star rating between {_searchRangeMin.StarValue} and {_searchRangeMax.StarValue}");
 
-    protected override IReadOnlyList<QueriedInventoryItem> Decorate(IReadOnlyList<QueriedInventoryItem> items)
+    protected override IReadOnlyList<InventoryItem> Decorate(IReadOnlyList<InventoryItem> items)
     {
         return items.Where(item =>
             item.StarRating.CompareTo(_searchRangeMin) >= 0 &&

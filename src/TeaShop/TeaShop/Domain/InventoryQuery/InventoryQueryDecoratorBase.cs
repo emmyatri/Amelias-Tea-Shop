@@ -1,4 +1,6 @@
-﻿namespace TeaShop.Domain.InventoryQuery;
+﻿using TeaShop.Domain.Inventory;
+
+namespace TeaShop.Domain.InventoryQuery;
 
 /// <summary>
 ///     Base class for all query decorators. Wraps an inner query
@@ -15,9 +17,9 @@ public abstract class InventoryQueryDecoratorBase(IInventoryQuery inner) : IInve
     ///     Applies this decorator's specific filtering or sorting logic
     ///     to the results from the inner query.
     /// </summary>
-    protected abstract IReadOnlyList<QueriedInventoryItem> Decorate(IReadOnlyList<QueriedInventoryItem> items);
+    protected abstract IReadOnlyList<InventoryItem> Decorate(IReadOnlyList<InventoryItem> items);
 
-    public IReadOnlyList<QueriedInventoryItem> Execute()
+    public IReadOnlyList<InventoryItem> Execute()
     {
         var items = _inner.Execute();
         return Decorate(items);

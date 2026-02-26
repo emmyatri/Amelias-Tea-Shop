@@ -15,7 +15,7 @@ public sealed class MinStarRatingFilterDecorator(IInventoryQuery inner, StarRati
         => new("Filter", $"Star rating >= {_searchStarRatingMin.StarValue}");
 
     
-    protected override IReadOnlyList<QueriedInventoryItem> Decorate(IReadOnlyList<QueriedInventoryItem> items)
+    protected override IReadOnlyList<InventoryItem> Decorate(IReadOnlyList<InventoryItem> items)
     {
         return items.Where(item =>
             item.StarRating.CompareTo(_searchStarRatingMin) >= 0).ToList();

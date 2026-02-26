@@ -1,4 +1,6 @@
-﻿namespace TeaShop.Domain.InventoryQuery;
+﻿using TeaShop.Domain.Inventory;
+
+namespace TeaShop.Domain.InventoryQuery;
 
 /// <summary>
 ///     Filters inventory items by stock availability.
@@ -12,8 +14,8 @@ public sealed class AvailabilityFilterDecorator(IInventoryQuery inner, bool isAv
             ? "Availability = In Stock (Quantity > 0)"
             : "Availability = Out of Stock (Quantity = 0)");
 
-    protected override IReadOnlyList<QueriedInventoryItem> Decorate(IReadOnlyList<QueriedInventoryItem> items)
+    protected override IReadOnlyList<InventoryItem> Decorate(IReadOnlyList<InventoryItem> items)
     {
-        return items.Where(item => item.Quantity > 0 == _isAvailable).ToList();
+        return items.Where(item => item.IsAvailable == _isAvailable).ToList();
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace TeaShop.Domain.InventoryQuery;
+﻿using TeaShop.Domain.Inventory;
+
+namespace TeaShop.Domain.InventoryQuery;
 
 /// <summary>
 ///     Defines a composable inventory query. Implementations can be
@@ -9,7 +11,7 @@ public interface IInventoryQuery
     /// <summary>
     ///     Executes the query and returns matching inventory items.
     /// </summary>
-    IReadOnlyList<QueriedInventoryItem> Execute();
+    IReadOnlyList<InventoryItem> Execute();
 
     /// <summary>
     ///     Gets the accumulated filter and sort descriptions from the query chain.

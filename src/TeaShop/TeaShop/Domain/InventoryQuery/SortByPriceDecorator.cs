@@ -1,4 +1,6 @@
-﻿namespace TeaShop.Domain.InventoryQuery;
+﻿using TeaShop.Domain.Inventory;
+
+namespace TeaShop.Domain.InventoryQuery;
 
 /// <summary>
 ///     Sorts inventory items by price in the specified direction.
@@ -11,7 +13,7 @@ public sealed class SortByPriceDecorator(IInventoryQuery inner, SortDirection pr
     protected override FilterDescription? AppliedDescription
         => new("Sort", $"Price ({_priceDirection.ToString().ToLower()})");
 
-    protected override IReadOnlyList<QueriedInventoryItem> Decorate(IReadOnlyList<QueriedInventoryItem> items)
+    protected override IReadOnlyList<InventoryItem> Decorate(IReadOnlyList<InventoryItem> items)
     {
         if (_priceDirection == SortDirection.Ascending)
             return items.OrderBy(item => item.Price).ToList();

@@ -1,4 +1,6 @@
-﻿namespace TeaShop.Domain.InventoryQuery;
+﻿using TeaShop.Domain.Inventory;
+
+namespace TeaShop.Domain.InventoryQuery;
 
 /// <summary>
 ///     Filters inventory items whose name contains the search text (case-insensitive).
@@ -11,7 +13,7 @@ public sealed class NameContainsFilterDecorator(IInventoryQuery inner, string se
             : new("Filter", $"Name contains \"{_searchText}\"");
 
 
-    protected override IReadOnlyList<QueriedInventoryItem> Decorate(IReadOnlyList<QueriedInventoryItem> items)
+    protected override IReadOnlyList<InventoryItem> Decorate(IReadOnlyList<InventoryItem> items)
     {
         return items.Where(item => 
             item.Name.Contains(_searchText, StringComparison.OrdinalIgnoreCase)).ToList();
