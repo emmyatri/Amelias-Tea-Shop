@@ -1,6 +1,4 @@
-﻿using TeaShop.Domain.Inventory;
-
-namespace TeaShop.Domain.Payment;
+﻿namespace TeaShop.Domain.Payment;
 
 /// <summary>
 ///     Processes a simulated Credit Card payment

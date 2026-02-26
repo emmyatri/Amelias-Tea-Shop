@@ -1,5 +1,4 @@
 ﻿using TeaShop.Domain.Inventory;
-using TeaShop.Domain.InventoryQuery;
 using TeaShop.UserInterface.PaymentBuilder;
 using TeaShop.UserInterface.QueryBuilder;
 
@@ -14,10 +13,9 @@ public sealed class Application
 {
     private readonly IUserPrompt _reader;
     private readonly TextWriter _writer;
-    private readonly InventoryRepository _repository;
     private readonly InventoryQueryBuilder _queryBuilder;
     private readonly InventoryQueryOutputWriter _outputWriter;
-    private readonly IReadOnlyList<IPaymentBuilder> _paymentMethods;
+    private readonly PurchaseHandler _purchaseHandler;
 
     public Application(TextReader reader, TextWriter writer)
     {
@@ -26,10 +24,13 @@ public sealed class Application
 
         _writer = writer;
         _reader = new UserPrompt(reader, writer);
-        _repository = new InventoryRepository();
-        _queryBuilder = new InventoryQueryBuilder(_reader, _repository);
+        
+        var repository = new InventoryRepository();
+        var paymentMethods = PaymentBuilderListFactory.Create();
+        
+        _queryBuilder = new InventoryQueryBuilder(_reader, repository);
         _outputWriter = new InventoryQueryOutputWriter(_writer);
-        _paymentMethods = PaymentBuilderListFactory.Create();
+        _purchaseHandler = new PurchaseHandler(_reader, _writer, repository, paymentMethods);
     }
     
     public void Run()
@@ -48,50 +49,12 @@ public sealed class Application
             _outputWriter.Write(output);
 
             if (output.Items.Count > 0)
-                ProcessPurchase(output);
+                _purchaseHandler.Handle(output);
 
             searchAgain = _reader.ReadChoice("Search for more tea? (Y/N, default Y)", "Y") != "N";
         }
     }
     
-    private void ProcessPurchase(InventoryQueryOutput output)
-    {
-        var itemIndex = _reader.ReadInt(
-            $"Purchase an item? Enter item number 1 - {output.Items.Count} or 0 to continue",
-            0, 0, output.Items.Count);
-        if (itemIndex == 0) return;
-
-        var selectedItem = output.Items[itemIndex - 1];
-
-        if (!selectedItem.IsAvailable)
-        {
-            _writer.WriteLine();
-            _writer.WriteLine($"\"{selectedItem.Name}\" is out of stock and cannot be purchased.");
-            return;
-        }
-
-        var quantity = _reader.ReadInt(
-            $"Quantity for \"{selectedItem.Name}\" (1 - {selectedItem.Quantity}): ",
-            null, 1, selectedItem.Quantity);
-
-        ProcessCheckout(selectedItem, quantity);
-        _repository.DecreaseQuantity(selectedItem.Id, quantity);
-    }
-    
-    private void ProcessCheckout(QueriedInventoryItem item, int quantity)
-    {
-        _writer.WriteLine();
-        _writer.WriteLine($"*** Total Price: {item.Price * quantity:C} ***");
-        _writer.WriteLine("*** Choose a payment method: ");
-        for (var i = 0; i < _paymentMethods.Count; i++)
-            _writer.WriteLine($"{i + 1}. {_paymentMethods[i].Name}");
-        _writer.WriteLine();
-
-        var selection = _reader.ReadInt("Selection: ", 1, 1, _paymentMethods.Count);
-        var strategy = _paymentMethods[selection - 1].Build(_reader, _writer);
-        strategy.Checkout(item, quantity, _writer);
-        _writer.WriteLine($"*** Purchase complete. Your {quantity} packages of {item.Name} is on the way ***");
-    }
 
 
 }

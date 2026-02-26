@@ -11,13 +11,13 @@ public sealed class CryptoCurrencyPaymentBuilder : IPaymentBuilder
     public string Name => "Crypto Currency";
 
 
-    public IPaymentStrategy Build(IUserPrompt reader, TextWriter writer)
+    public IPaymentStrategy Build(IUserPrompt reader)
     {
         string walletNumber;
         do
         {
             walletNumber = reader.ReadString("Enter CryptoCurrency Wallet Number: ");
-            if (walletNumber.Length < 6) writer.Write("Invalid Wallet Number. Please enter a valid Wallet Number: ");
+            if (walletNumber.Length < 6) reader.ShowError("Invalid Wallet Number. Please enter a valid Wallet Number: ");
         } while (walletNumber.Length < 6);
 
         return new CryptoCurrencyStrategy(walletNumber);

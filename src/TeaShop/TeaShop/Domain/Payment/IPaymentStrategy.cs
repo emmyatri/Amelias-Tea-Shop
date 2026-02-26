@@ -11,5 +11,5 @@ public interface IPaymentStrategy
     /// <summary>
     ///     Executes the simulated checkout and returns a confirmation message.
     /// </summary>
-    void Checkout(InventoryItem item, int quantity, TextWriter writer);
+    PaymentResult Checkout(InventoryItem item, int quantity);
 }

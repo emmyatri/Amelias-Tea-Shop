@@ -3,27 +3,22 @@
 namespace TeaShop.Domain.Payment;
 
 /// <summary>
-///     Base class for all payment strategies. Holds shared purchase
-///     details and provides a common confirmation message format.
+///     Base class for all payment strategies. Computes the total,
+///     delegates to subclasses for payment-specific detail, and
+///     returns a structured result.
 /// </summary>
 public abstract class PaymentStrategyBase : IPaymentStrategy
 {
 
-    public void Checkout(InventoryItem item, int quantity, TextWriter writer)
+    public PaymentResult Checkout(InventoryItem item, int quantity)
     {
         ArgumentNullException.ThrowIfNull(item);
-        ArgumentNullException.ThrowIfNull(writer);
         if (quantity <= 0)
             throw new ArgumentException("Quantity must be greater than zero");
         
-        var total = ComputeTotal(item,  quantity);
+        var total = item.Price * quantity;
         var detail = GetPaymentDetail();
-        writer.WriteLine($"*** Paid {total:C} via {detail} ***");
-    }
-
-    protected decimal ComputeTotal(InventoryItem item, int quantity)
-    {
-        return item.Price * quantity;
+        return new PaymentResult(total, detail);
     }
 
     protected abstract string GetPaymentDetail();

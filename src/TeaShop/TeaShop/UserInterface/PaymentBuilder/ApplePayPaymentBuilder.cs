@@ -11,13 +11,13 @@ public sealed class ApplePayPaymentBuilder : IPaymentBuilder
     
 
 
-    public IPaymentStrategy Build(IUserPrompt reader, TextWriter writer)
+    public IPaymentStrategy Build(IUserPrompt reader)
     {
         string phoneNumber;
         do
         {
             phoneNumber = reader.ReadString("Enter ApplePay Phone Number: ");
-            if (phoneNumber.Length < 10) writer.Write("Invalid Phone Number. Please enter a valid Phone Number: ");
+            if (phoneNumber.Length < 10) reader.ShowError("Invalid Phone Number. Please enter a valid Phone Number: ");
         } while (phoneNumber.Length < 10);
 
         return new ApplePayStrategy(phoneNumber);
