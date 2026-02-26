@@ -11,7 +11,7 @@ public sealed class CryptoCurrencyPaymentBuilder : IPaymentBuilder
     public string Name => "Crypto Currency";
 
 
-    public IPaymentStrategy Build(UserPrompt reader, TextWriter writer)
+    public IPaymentStrategy Build(IUserPrompt reader, TextWriter writer)
     {
         string walletNumber;
         do

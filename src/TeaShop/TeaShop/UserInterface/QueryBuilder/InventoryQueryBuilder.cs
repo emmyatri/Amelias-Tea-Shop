@@ -1,4 +1,6 @@
 ﻿using TeaShop.Domain.Inventory;
+using TeaShop.Domain.InventoryQuery.Filters;
+using TeaShop.Domain.InventoryQuery.Sorts;
 using TeaShop.Domain.InventoryQuery;
 
 namespace TeaShop.UserInterface.QueryBuilder;
@@ -6,11 +8,11 @@ namespace TeaShop.UserInterface.QueryBuilder;
 
 /// <summary>
 ///     Collects user search criteria and constructs a decorated
-///     query pipeline of filters and sorts.
+///     query pipeline of filters and sorts
 /// </summary>
-public sealed class InventoryQueryBuilder(UserPrompt reader, InventoryRepository repository)
+public sealed class InventoryQueryBuilder(IUserPrompt reader, InventoryRepository repository)
 {
-    private readonly UserPrompt _reader = reader ?? throw new ArgumentNullException(nameof(reader));
+    private readonly IUserPrompt _reader = reader ?? throw new ArgumentNullException(nameof(reader));
 
     private readonly InventoryRepository
         _repository = repository ?? throw new ArgumentNullException(nameof(repository));
@@ -32,7 +34,6 @@ public sealed class InventoryQueryBuilder(UserPrompt reader, InventoryRepository
     private IInventoryQuery ApplyNameFilter(IInventoryQuery query)
     {
         var name = _reader.ReadString("*Tea name contains (leave blank for all names): ");
-        if (string.IsNullOrWhiteSpace(name)) return query;
         return new NameContainsFilterDecorator(query, name);
     }
 
@@ -53,7 +54,7 @@ public sealed class InventoryQueryBuilder(UserPrompt reader, InventoryRepository
             max = _reader.ReadDecimal("* Price maximum (default $1000): ", 1000m);
 
             if (min > max)
-                _reader.WriteMessage("\n Minimum price cannot exceed maximum. Please re-enter.\n");
+                _reader.ShowError("Minimum price cannot exceed maximum. Please re-enter.");
         } while (min > max);
 
         return new PriceRangeFilterDecorator(query, min, max);
@@ -68,7 +69,7 @@ public sealed class InventoryQueryBuilder(UserPrompt reader, InventoryRepository
             min = _reader.ReadInt("* Star rating minimum (1-5, default 3): ", 3, 1, 5);
             max = _reader.ReadInt("* Star rating maximum (1-5, default 5): ", 5, 1, 5);
 
-            if (min > max) _reader.WriteMessage("\nMinimum star rating cannot exceed maximum. Please re-enter\n");
+            if (min > max) _reader.ShowError("Minimum star rating cannot exceed maximum. Please re-enter");
         } while (min > max);
 
         return new StarRatingRangeFilterDecorator(query, new StarRating(min), new StarRating(max));

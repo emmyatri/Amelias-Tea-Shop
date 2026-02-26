@@ -13,6 +13,6 @@ public static class PaymentBuilderListFactory
             new CreditCardPaymentBuilder(),
             new ApplePayPaymentBuilder(),
             new CryptoCurrencyPaymentBuilder()
-        };
+        }.AsReadOnly();
     }
 }

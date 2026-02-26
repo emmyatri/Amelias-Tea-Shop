@@ -7,10 +7,11 @@ namespace TeaShop.Domain.Payment;
 /// </summary>
 public sealed class CryptoCurrencyStrategy(string walletNumber) : PaymentStrategyBase
 {
-    private readonly string _walletNumber = walletNumber ?? throw new ArgumentNullException(nameof(walletNumber));
+    private readonly string _walletNumber = 
+        string.IsNullOrWhiteSpace(walletNumber) ? throw new ArgumentException("Wallet number cannot be empty.", nameof(walletNumber)) :
+        walletNumber.Length < 6 ? throw new ArgumentException("Wallet number must be at least 6 characters.", nameof(walletNumber)) :
+        walletNumber;
 
-    public override void Checkout(InventoryItem item, int quantity, TextWriter output)
-    {
-        WritePaymentDetail(output, $"CryptoCurrency wallet ending in [{_walletNumber[^6..]}]");
-    }
+    protected override string GetPaymentDetail()
+        => $"CryptoCurrency wallet ending in [{_walletNumber[^6..]}]";
 }

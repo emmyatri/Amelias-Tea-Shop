@@ -1,6 +1,15 @@
 ﻿using TeaShop.UserInterface;
 
-Console.OutputEncoding = System.Text.Encoding.UTF8;
+namespace TeaShop;
 
-var app = new Application(Console.In, Console.Out);
-app.Run();
+public static class Program
+{
+    public static void Main()
+    {
+        Console.OutputEncoding = System.Text.Encoding.Unicode;
+        
+        var application = new Application(Console.In, Console.Out);
+        application.Run();
+        
+    }
+}

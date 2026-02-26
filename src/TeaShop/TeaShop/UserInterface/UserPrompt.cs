@@ -5,7 +5,7 @@
 ///     Centralizes all console input/output operations for testability
 ///     and consistent prompt formatting.
 /// </summary>
-public sealed class UserPrompt(TextReader reader, TextWriter writer)
+public sealed class UserPrompt(TextReader reader, TextWriter writer) : IUserPrompt
 {
     private readonly TextReader _reader = reader ?? throw new ArgumentNullException(nameof(reader));
     private readonly TextWriter _writer = writer ?? throw new ArgumentNullException(nameof(writer));
@@ -37,7 +37,7 @@ public sealed class UserPrompt(TextReader reader, TextWriter writer)
         }
     }
 
-    public int ReadInt(string prompt, int defaultValue, int min = int.MinValue, int max = int.MaxValue)
+    public int ReadInt(string prompt, int? defaultValue, int min = int.MinValue, int max = int.MaxValue)
     {
         while (true)
         {
@@ -45,7 +45,7 @@ public sealed class UserPrompt(TextReader reader, TextWriter writer)
             var input = _reader.ReadLine()?.Trim() ?? "";
             _writer.WriteLine("-----");
 
-            if (string.IsNullOrWhiteSpace(input)) return defaultValue;
+            if (string.IsNullOrWhiteSpace(input) && defaultValue.HasValue) return defaultValue.Value;
 
             if (int.TryParse(input, out var val) && val >= min && val <= max)
                 return val;
@@ -65,8 +65,8 @@ public sealed class UserPrompt(TextReader reader, TextWriter writer)
         return string.IsNullOrWhiteSpace(input) ? defaultValue : input;
     }
 
-    public void WriteMessage(string message)
+    public void ShowError(string message)
     {
-        _writer.WriteLine(message);
+        _writer.WriteLine($"\n !!! {message}\n");
     }
 }

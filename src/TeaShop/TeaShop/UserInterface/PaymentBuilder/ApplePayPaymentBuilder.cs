@@ -11,7 +11,7 @@ public sealed class ApplePayPaymentBuilder : IPaymentBuilder
     
 
 
-    public IPaymentStrategy Build(UserPrompt reader, TextWriter writer)
+    public IPaymentStrategy Build(IUserPrompt reader, TextWriter writer)
     {
         string phoneNumber;
         do

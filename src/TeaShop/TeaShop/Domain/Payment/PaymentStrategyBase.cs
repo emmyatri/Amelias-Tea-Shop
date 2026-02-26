@@ -9,15 +9,22 @@ namespace TeaShop.Domain.Payment;
 public abstract class PaymentStrategyBase : IPaymentStrategy
 {
 
-    public abstract void Checkout(InventoryItem item, int quantity, TextWriter writer);
-
-
-    /// <summary>
-    ///     Builds a standardized checkout confirmation message
-    ///     using the provided payment-specific detail.
-    /// </summary>
-    protected void WritePaymentDetail(TextWriter writer, string paymentDetail)
+    public void Checkout(InventoryItem item, int quantity, TextWriter writer)
     {
-        writer.WriteLine($"*** Paid via {paymentDetail} ***");
+        ArgumentNullException.ThrowIfNull(item);
+        ArgumentNullException.ThrowIfNull(writer);
+        if (quantity <= 0)
+            throw new ArgumentException("Quantity must be greater than zero");
+        
+        var total = ComputeTotal(item,  quantity);
+        var detail = GetPaymentDetail();
+        writer.WriteLine($"*** Paid {total:C} via {detail} ***");
     }
+
+    protected decimal ComputeTotal(InventoryItem item, int quantity)
+    {
+        return item.Price * quantity;
+    }
+
+    protected abstract string GetPaymentDetail();
 }

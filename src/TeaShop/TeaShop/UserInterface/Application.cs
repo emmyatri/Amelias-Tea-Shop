@@ -12,7 +12,7 @@ namespace TeaShop.UserInterface;
 /// </summary>
 public sealed class Application
 {
-    private readonly UserPrompt _reader;
+    private readonly IUserPrompt _reader;
     private readonly TextWriter _writer;
     private readonly InventoryRepository _repository;
     private readonly InventoryQueryBuilder _queryBuilder;
@@ -72,7 +72,7 @@ public sealed class Application
 
         var quantity = _reader.ReadInt(
             $"Quantity for \"{selectedItem.Name}\" (1 - {selectedItem.Quantity}): ",
-            0, 1, selectedItem.Quantity);
+            null, 1, selectedItem.Quantity);
 
         ProcessCheckout(selectedItem, quantity);
         _repository.DecreaseQuantity(selectedItem.Id, quantity);

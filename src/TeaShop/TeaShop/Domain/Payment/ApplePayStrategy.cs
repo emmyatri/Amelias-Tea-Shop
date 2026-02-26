@@ -7,10 +7,11 @@ namespace TeaShop.Domain.Payment;
 /// </summary>
 public sealed class ApplePayStrategy(string phoneNumber) : PaymentStrategyBase
 {
-    private readonly string _phoneNumber = phoneNumber ?? throw new ArgumentNullException(nameof(phoneNumber));
+    private readonly string _phoneNumber = 
+        string.IsNullOrWhiteSpace(phoneNumber) ? throw new ArgumentException("Phone number cannot be empty.", nameof(phoneNumber)) :
+        phoneNumber.Length < 4 ? throw new ArgumentException("Phone number must be at least 4 characters.", nameof(phoneNumber)) :
+        phoneNumber;
 
-    public override void Checkout(InventoryItem item, int quantity, TextWriter output)
-    {
-        WritePaymentDetail(output, $"ApplePay Phone Number ending in [{_phoneNumber[^4..]}]");
-    }
+    protected override string GetPaymentDetail()
+        => $"ApplePay Phone Number ending in [{_phoneNumber[^4..]}]";
 }

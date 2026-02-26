@@ -9,7 +9,7 @@ public sealed class CreditCardPaymentBuilder : IPaymentBuilder
 {
     public string Name => "Credit Card";
 
-    public IPaymentStrategy Build(UserPrompt reader, TextWriter writer)
+    public IPaymentStrategy Build(IUserPrompt reader, TextWriter writer)
     {
         string cardNumber;
         do

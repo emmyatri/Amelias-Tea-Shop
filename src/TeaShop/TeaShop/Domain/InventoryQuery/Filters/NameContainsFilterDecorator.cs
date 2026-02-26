@@ -1,6 +1,6 @@
 ﻿using TeaShop.Domain.Inventory;
 
-namespace TeaShop.Domain.InventoryQuery;
+namespace TeaShop.Domain.InventoryQuery.Filters;
 
 /// <summary>
 ///     Filters inventory items whose name contains the search text (case-insensitive).
@@ -19,6 +19,6 @@ public sealed class NameContainsFilterDecorator(IInventoryQuery inner, string se
         if (string.IsNullOrWhiteSpace(_searchText)) return items;
         
         return items.Where(item => 
-            item.Name.Contains(_searchText, StringComparison.OrdinalIgnoreCase)).ToList();
+            item.Name.Contains(_searchText, StringComparison.OrdinalIgnoreCase)).ToList().AsReadOnly();
     }
 }

@@ -8,7 +8,7 @@ namespace TeaShop.Domain.InventoryQuery;
 /// </summary>
 public abstract class InventoryQueryDecoratorBase(IInventoryQuery inner) : IInventoryQuery
 {
-    protected readonly IInventoryQuery _inner = inner ?? throw new ArgumentNullException(nameof(inner));
+    private readonly IInventoryQuery _inner = inner ?? throw new ArgumentNullException(nameof(inner));
    
     
     protected virtual FilterDescription? AppliedDescription => null;

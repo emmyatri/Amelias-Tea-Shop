@@ -1,4 +1,4 @@
-﻿namespace TeaShop.Domain.InventoryQuery;
+﻿namespace TeaShop.Domain.InventoryQuery.Sorts;
 
 /// <summary>
 ///     Specifies the sort order for query results.
