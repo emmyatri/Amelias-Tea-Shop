@@ -5,9 +5,11 @@
 /// </summary>
 public sealed class CreditCardStrategy(string creditCardNumber) : PaymentStrategyBase
 {
+    public const int MinLength = 16;
+    
     private readonly string _creditCardNumber = 
         string.IsNullOrWhiteSpace(creditCardNumber) ? throw new ArgumentException("Card number cannot be empty.", nameof(creditCardNumber)) :
-        creditCardNumber.Length < 4 ? throw new ArgumentException("Card number must be at least 4 characters.", nameof(creditCardNumber)) :
+        creditCardNumber.Length < MinLength ? throw new ArgumentException("Card number must be at least 16 characters.", nameof(creditCardNumber)) :
         creditCardNumber;
 
     protected override string GetPaymentDetail()

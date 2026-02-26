@@ -15,8 +15,8 @@ public sealed class CreditCardPaymentBuilder : IPaymentBuilder
         do
         {
             cardNumber = reader.ReadString("Enter Credit Card Number: ");
-            if (cardNumber.Length < 16) reader.ShowError("Invalid Card Number. Please enter a valid Card Number: ");
-        } while (cardNumber.Length < 16);
+            if (cardNumber.Length < CreditCardStrategy.MinLength) reader.ShowError("Invalid Card Number. Please enter a valid Card Number: ");
+        } while (cardNumber.Length < CreditCardStrategy.MinLength);
 
         return new CreditCardStrategy(cardNumber);
     }

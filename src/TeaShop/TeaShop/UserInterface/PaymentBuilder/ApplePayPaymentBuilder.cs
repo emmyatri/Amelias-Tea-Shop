@@ -17,8 +17,8 @@ public sealed class ApplePayPaymentBuilder : IPaymentBuilder
         do
         {
             phoneNumber = reader.ReadString("Enter ApplePay Phone Number: ");
-            if (phoneNumber.Length < 10) reader.ShowError("Invalid Phone Number. Please enter a valid Phone Number: ");
-        } while (phoneNumber.Length < 10);
+            if (phoneNumber.Length != ApplePayStrategy.RequiredLength) reader.ShowError("Invalid Phone Number. Please enter a valid Phone Number: ");
+        } while (phoneNumber.Length !=  ApplePayStrategy.RequiredLength);
 
         return new ApplePayStrategy(phoneNumber);
     }

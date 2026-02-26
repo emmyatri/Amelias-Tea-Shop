@@ -17,8 +17,8 @@ public sealed class CryptoCurrencyPaymentBuilder : IPaymentBuilder
         do
         {
             walletNumber = reader.ReadString("Enter CryptoCurrency Wallet Number: ");
-            if (walletNumber.Length < 6) reader.ShowError("Invalid Wallet Number. Please enter a valid Wallet Number: ");
-        } while (walletNumber.Length < 6);
+            if (walletNumber.Length < CryptoCurrencyStrategy.MinLength) reader.ShowError("Invalid Wallet Number. Please enter a valid Wallet Number: ");
+        } while (walletNumber.Length < CryptoCurrencyStrategy.MinLength);
 
         return new CryptoCurrencyStrategy(walletNumber);
     }
