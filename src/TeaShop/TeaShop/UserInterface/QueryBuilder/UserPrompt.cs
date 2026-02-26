@@ -1,5 +1,10 @@
 ﻿namespace TeaShop.UserInterface.QueryBuilder;
 
+
+/// <summary>
+///     Centralizes all console input/output operations for testability
+///     and consistent prompt formatting.
+/// </summary>
 public sealed class UserPrompt(TextReader reader, TextWriter writer)
 {
     private readonly TextReader _reader = reader ?? throw new ArgumentNullException(nameof(reader));

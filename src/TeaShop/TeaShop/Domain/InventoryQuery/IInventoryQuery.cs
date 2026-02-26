@@ -11,5 +11,8 @@ public interface IInventoryQuery
     /// </summary>
     IReadOnlyList<QueriedInventoryItem> Execute();
 
+    /// <summary>
+    ///     Gets the accumulated filter and sort descriptions from the query chain.
+    /// </summary>
     IReadOnlyList<FilterDescription> AppliedFiltersAndSorts { get; }
 }
