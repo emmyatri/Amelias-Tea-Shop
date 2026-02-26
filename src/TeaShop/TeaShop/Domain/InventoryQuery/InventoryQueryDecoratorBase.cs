@@ -11,7 +11,7 @@ public abstract class InventoryQueryDecoratorBase(IInventoryQuery inner) : IInve
     private readonly IInventoryQuery _inner = inner ?? throw new ArgumentNullException(nameof(inner));
    
     
-    protected virtual FilterDescription? AppliedDescription => null;
+    protected virtual string? AppliedDescription => null;
 
     /// <summary>
     ///     Applies this decorator's specific filtering or sorting logic
@@ -26,14 +26,14 @@ public abstract class InventoryQueryDecoratorBase(IInventoryQuery inner) : IInve
     }
 
     
-    public IReadOnlyList<FilterDescription> AppliedFiltersAndSorts
+    public IReadOnlyList<string> AppliedFiltersAndSorts
     {
         get
         {
             if (AppliedDescription is null)
                 return _inner.AppliedFiltersAndSorts;
 
-            var combined = new List<FilterDescription>(_inner.AppliedFiltersAndSorts) { AppliedDescription };
+            var combined = new List<string>(_inner.AppliedFiltersAndSorts) { AppliedDescription };
             return combined.AsReadOnly();
         }
     }

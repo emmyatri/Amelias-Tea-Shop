@@ -10,8 +10,8 @@ public sealed class SortByPriceDecorator(IInventoryQuery inner, SortDirection pr
 {
     private readonly SortDirection _priceDirection = priceDirection;
 
-    protected override FilterDescription? AppliedDescription
-        => new(FilterType.Sort, $"Price ({_priceDirection.ToString().ToLower()})");
+    protected override string? AppliedDescription
+        => ($"Sort: Price ({_priceDirection.ToString().ToLower()})");
 
     protected override IReadOnlyList<InventoryItem> Decorate(IReadOnlyList<InventoryItem> items)
     {

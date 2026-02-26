@@ -9,10 +9,10 @@ public sealed class AvailabilityFilterDecorator(IInventoryQuery inner, bool isAv
 {
     private readonly bool _isAvailable = isAvailable;
 
-    protected override FilterDescription? AppliedDescription
-        => new(FilterType.Filter, _isAvailable
-            ? "Availability = In Stock (Quantity > 0)"
-            : "Availability = Out of Stock (Quantity = 0)");
+    protected override string? AppliedDescription
+        => (_isAvailable
+            ? "Filter: Availability = In Stock (Quantity > 0)"
+            : "Filter: Availability = Out of Stock (Quantity = 0)");
 
     protected override IReadOnlyList<InventoryItem> Decorate(IReadOnlyList<InventoryItem> items)
     {

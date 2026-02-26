@@ -15,7 +15,7 @@ public sealed class InventoryQueryOutputWriter(TextWriter writer)
         _writer.WriteLine("Applied Filters and Sorts: ");
         
         foreach (var filter in output.AppliedFilters)
-            _writer.WriteLine($"- {filter.Type}: {filter.Detail}");
+            _writer.WriteLine($"- {filter} ");
 
         _writer.WriteLine();
 

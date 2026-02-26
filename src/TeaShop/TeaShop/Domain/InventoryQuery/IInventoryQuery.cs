@@ -16,5 +16,5 @@ public interface IInventoryQuery
     /// <summary>
     ///     Gets the accumulated filter and sort descriptions from the query chain.
     /// </summary>
-    IReadOnlyList<FilterDescription> AppliedFiltersAndSorts { get; }
+    IReadOnlyList<string> AppliedFiltersAndSorts { get; }
 }

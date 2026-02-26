@@ -9,9 +9,9 @@ public sealed class NameContainsFilterDecorator(IInventoryQuery inner, string se
 {
     private readonly string _searchText = searchText ?? throw new ArgumentNullException(nameof(searchText));
     
-    protected override FilterDescription? AppliedDescription
+    protected override string? AppliedDescription
         => string.IsNullOrWhiteSpace(_searchText) ? null 
-            : new(FilterType.Filter, $"Name contains \"{_searchText}\"");
+            : ($"Filter: Name contains \"{_searchText}\"");
 
 
     protected override IReadOnlyList<InventoryItem> Decorate(IReadOnlyList<InventoryItem> items)

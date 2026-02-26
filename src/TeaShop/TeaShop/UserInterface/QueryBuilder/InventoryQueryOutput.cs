@@ -5,10 +5,10 @@ namespace TeaShop.UserInterface.QueryBuilder;
 
 public sealed class InventoryQueryOutput(
     IReadOnlyList<QueriedInventoryItem> items,
-    IReadOnlyList<FilterDescription> appliedFilters)
+    IReadOnlyList<string> appliedFilters)
 {
     public IReadOnlyList<QueriedInventoryItem> Items { get; } = items ?? throw new ArgumentNullException(nameof(items));
-    public IReadOnlyList<FilterDescription> AppliedFilters { get; } = 
+    public IReadOnlyList<string> AppliedFilters { get; } = 
         appliedFilters ?? throw new ArgumentNullException(nameof(appliedFilters));
     
     public static InventoryQueryOutput From(IInventoryQuery query)

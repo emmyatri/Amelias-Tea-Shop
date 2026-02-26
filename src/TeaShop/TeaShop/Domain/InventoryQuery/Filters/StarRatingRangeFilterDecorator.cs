@@ -21,8 +21,8 @@ public sealed class StarRatingRangeFilterDecorator : InventoryQueryDecoratorBase
             throw new ArgumentException("Minimum star rating cannot exceed maximum star rating.");
     }
     
-    protected override FilterDescription? AppliedDescription
-        => new(FilterType.Filter, $"Star rating between {_searchRangeMin.StarValue} and {_searchRangeMax.StarValue}");
+    protected override string? AppliedDescription
+        => ($"Filter: Star rating between {_searchRangeMin.StarValue} and {_searchRangeMax.StarValue}");
 
     protected override IReadOnlyList<InventoryItem> Decorate(IReadOnlyList<InventoryItem> items)
     {
