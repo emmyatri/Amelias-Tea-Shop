@@ -74,7 +74,7 @@ public sealed class PurchaseHandler(
             
             if (int.TryParse(input, out var selection) && selection >= 1 && selection <= _paymentMethods.Count)
             {
-                var strategy = _paymentMethods[selection - 1].Build(_reader);
+                var strategy = _paymentMethods[selection - 1].Build();
                 var result = strategy.Checkout(item, quantity);
                 _writer.WriteLine($"*** Paid {result.Total:C} via {result.PaymentDetail} ***");
                 _writer.WriteLine($"*** Purchase complete. Your {quantity} packages of {item.Name} is on the way ***");

@@ -26,7 +26,7 @@ public sealed class Application
         _reader = new UserPrompt(reader, writer);
         
         var repository = new InventoryRepository();
-        var paymentMethods = PaymentBuilderListFactory.Create();
+        var paymentMethods = PaymentBuilderListFactory.Create(_reader);
         
         _queryBuilder = new InventoryQueryBuilder(_reader, repository);
         _outputWriter = new InventoryQueryOutputWriter(_writer);

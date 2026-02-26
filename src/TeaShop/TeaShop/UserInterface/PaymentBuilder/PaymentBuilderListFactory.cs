@@ -6,13 +6,13 @@
 /// </summary>
 public static class PaymentBuilderListFactory
 {
-    public static IReadOnlyList<IPaymentBuilder> Create()
+    public static IReadOnlyList<IPaymentBuilder> Create(IUserPrompt reader)
     {
         return new List<IPaymentBuilder>
         {
-            new CreditCardPaymentBuilder(),
-            new ApplePayPaymentBuilder(),
-            new CryptoCurrencyPaymentBuilder()
+            new CreditCardPaymentBuilder(reader),
+            new ApplePayPaymentBuilder(reader),
+            new CryptoCurrencyPaymentBuilder(reader)
         }.AsReadOnly();
     }
 }

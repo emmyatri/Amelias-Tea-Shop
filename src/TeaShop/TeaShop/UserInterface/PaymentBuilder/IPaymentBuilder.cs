@@ -16,5 +16,5 @@ public interface IPaymentBuilder
     /// <summary>
     ///     Prompts the user for payment details and returns a ready-to-execute strategy.
     /// </summary>
-    IPaymentStrategy Build(IUserPrompt reader);
+    IPaymentStrategy Build();
 }
