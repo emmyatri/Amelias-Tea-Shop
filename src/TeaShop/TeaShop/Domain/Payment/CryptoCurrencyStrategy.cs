@@ -12,6 +12,6 @@ public sealed class CryptoCurrencyStrategy(string walletNumber) : PaymentStrateg
         walletNumber.Length < MinLength ? throw new ArgumentException("Wallet number must be at least 6 characters.", nameof(walletNumber)) :
         walletNumber;
 
-    protected override string GetPaymentDetail()
-        => $"CryptoCurrency wallet ending in [{_walletNumber[^6..]}]";
+    protected override string GetPaymentMethod() => "CryptoCurrency";
+    protected override string GetMaskedIdentifier() => _walletNumber[^6..];
 }

@@ -15,9 +15,10 @@ public abstract class PaymentStrategyBase : IPaymentStrategy
         ArgumentNullException.ThrowIfNull(item);
         
         var total = item.PriceFor(quantity);
-        var detail = GetPaymentDetail();
-        return new PaymentResult(total, detail);
+        return new PaymentResult(total, GetPaymentMethod(), GetMaskedIdentifier());
     }
 
-    protected abstract string GetPaymentDetail();
+    protected abstract string GetPaymentMethod();
+    
+    protected abstract string GetMaskedIdentifier();
 }

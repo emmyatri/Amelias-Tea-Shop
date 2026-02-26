@@ -76,7 +76,7 @@ public sealed class PurchaseHandler(
             {
                 var strategy = _paymentMethods[selection - 1].Build();
                 var result = strategy.Checkout(item, quantity);
-                _writer.WriteLine($"*** Paid {result.Total:C} via {result.PaymentDetail} ***");
+                _writer.WriteLine($"*** Paid {result.Total:C} via {result.PaymentMethod} ending in [{result.MaskedIdentifier}] ***");
                 _writer.WriteLine($"*** Purchase complete. Your {quantity} packages of {item.Name} is on the way ***");
                 return;
             }

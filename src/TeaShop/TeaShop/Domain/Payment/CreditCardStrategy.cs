@@ -12,6 +12,6 @@ public sealed class CreditCardStrategy(string creditCardNumber) : PaymentStrateg
         creditCardNumber.Length < MinLength ? throw new ArgumentException("Card number must be at least 16 characters.", nameof(creditCardNumber)) :
         creditCardNumber;
 
-    protected override string GetPaymentDetail()
-        => $"Credit Card ending in [{_creditCardNumber[^4..]}]";
+    protected override string GetPaymentMethod() => "Credit Card";
+    protected override string GetMaskedIdentifier() => _creditCardNumber[^4..];
 }

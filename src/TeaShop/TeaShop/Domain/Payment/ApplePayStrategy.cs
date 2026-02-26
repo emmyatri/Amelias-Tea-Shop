@@ -12,6 +12,7 @@ public sealed class ApplePayStrategy(string phoneNumber) : PaymentStrategyBase
         phoneNumber.Length != RequiredLength ? throw new ArgumentException("Phone number must be exactly 10 characters.", nameof(phoneNumber)) :
         phoneNumber;
 
-    protected override string GetPaymentDetail()
-        => $"ApplePay Phone Number ending in [{_phoneNumber[^4..]}]";
+    protected override string GetPaymentMethod() => "ApplePay";
+    
+    protected override string GetMaskedIdentifier() => _phoneNumber[^4..];
 }
