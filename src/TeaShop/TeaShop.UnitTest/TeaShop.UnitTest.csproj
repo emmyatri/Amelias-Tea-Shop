@@ -22,11 +22,4 @@
     <ProjectReference Include="..\TeaShop\TeaShop.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Domain\InventoryQuery\Filters\" />
-    <Folder Include="Domain\InventoryQuery\Sorts\" />
-    <Folder Include="Domain\Payment\" />
-    <Folder Include="UserInterface\" />
-  </ItemGroup>
-
 </Project>
