@@ -6,7 +6,7 @@ public static class Program
 {
     public static void Main()
     {
-        Console.OutputEncoding = System.Text.Encoding.Unicode;
+        Console.OutputEncoding = System.Text.Encoding.UTF8;
         
         var application = new Application(Console.In, Console.Out);
         application.Run();
