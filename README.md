@@ -60,7 +60,7 @@ Pricing logic lives on ``InventoryItem.PriceFor(quantity)`` with a guard clause 
 
 #### PurchaseHandler — SRP in Application
 
-``Application.Run()`` is 15 lines of pure orchestration. Purchase logic (item selection, quantity validation, payment selection, checkout) lives in ``PurchaseHandler``. Each class has one reason to change.
+``Application.Run()`` is 20 lines of pure orchestration. Purchase logic (item selection, quantity validation, payment selection, checkout) lives in ``PurchaseHandler``. Each class has one reason to change.
 
 #### StarRating Implements IComparable<StarRating>
 
