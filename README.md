@@ -50,7 +50,7 @@ var prompt = new FakeUserPrompt()
 
 The base class owns the checkout algorithm by computing total via ``item.PriceFor(quantity)``, gathering payment details, and returning a ``PaymentResult``. Subclasses implement only two one-liners: ``GetPaymentMethod()`` and ``GetMaskedIdentifier()``. Adding a new payment method means writing a class with two methods, not reimplementing the entire checkout flow.
 
-#### Masked Identifiers for Designed Privacy
+#### Masked Identifiers for Privacy
 
 Each payment strategy masks sensitive data structurally. ``CreditCardStrategy.GetMaskedIdentifier()`` returns ``_creditCardNumber[^4..]``. This method cannot return the full number. The UI displays ``ending in [3456]`` without ever having access to the complete card number.
 
