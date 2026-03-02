@@ -112,69 +112,69 @@ Amelias-Tea-Shop/
 ├── tea-shop-class-diagram.md
 ├── .gitignore
 └── src/
-└── TeaShop/
-├── TeaShop.sln
-├── Dockerfile
-├── .dockerignore
-├── TeaShop/
-│   ├── TeaShop.csproj
-│   ├── Program.cs
-│   ├── Domain/
-│   │   ├── Inventory/
-│   │   │   ├── InventoryItem.cs
-│   │   │   ├── InventoryRepository.cs
-│   │   │   └── StarRating.cs
-│   │   ├── InventoryQuery/
-│   │   │   ├── IInventoryQuery.cs
-│   │   │   ├── AllInventoryQuery.cs
-│   │   │   ├── InventoryQueryDecoratorBase.cs
-│   │   │   ├── QueriedInventoryItem.cs
-│   │   │   ├── Filters/
-│   │   │   │   ├── AvailabilityFilterDecorator.cs
-│   │   │   │   ├── NameContainsFilterDecorator.cs
-│   │   │   │   ├── PriceRangeFilterDecorator.cs
-│   │   │   │   └── StarRatingRangeFilterDecorator.cs
-│   │   │   └── Sorts/
-│   │   │       ├── SortByPriceDecorator.cs
-│   │   │       ├── SortByStarRatingDecorator.cs
-│   │   │       └── SortDirection.cs
-│   │   └── Payment/
-│   │       ├── IPaymentStrategy.cs
-│   │       ├── PaymentStrategyBase.cs
-│   │       ├── PaymentResult.cs
-│   │       ├── CreditCardStrategy.cs
-│   │       ├── ApplePayStrategy.cs
-│   │       └── CryptoCurrencyStrategy.cs
-│   └── UserInterface/
-│       ├── Application.cs
-│       ├── IUserPrompt.cs
-│       ├── UserPrompt.cs
-│       ├── PurchaseHandler.cs
-│       ├── QueryBuilder/
-│       │   ├── InventoryQueryBuilder.cs
-│       │   ├── InventoryQueryOutput.cs
-│       │   └── InventoryQueryOutputWriter.cs
-│       └── PaymentBuilder/
-│           ├── IPaymentBuilder.cs
-│           ├── PaymentBuilderListFactory.cs
-│           ├── CreditCardPaymentBuilder.cs
-│           ├── ApplePayPaymentBuilder.cs
-│           └── CryptoCurrencyPaymentBuilder.cs
-└── TeaShop.UnitTest/
-├── TeaShop.UnitTest.csproj
-├── Domain/
-│   ├── Inventory/
-│   │   ├── StarRatingTests.cs
-│   │   ├── InventoryItemTests.cs
-│   │   └── InventoryRepositoryTests.cs
-│   ├── InventoryQuery/
-│   │   └── QueryTests.cs
-│   └── Payment/
-│       └── PaymentStrategyTests.cs
-└── UserInterface/
-├── Fakes/
-│   └── FakeUserPrompt.cs
-└── InventoryQueryBuilderTests.cs
+    └── TeaShop/
+        ├── TeaShop.sln
+        ├── Dockerfile
+        ├── .dockerignore
+        ├── TeaShop/
+        │   ├── TeaShop.csproj
+        │   ├── Program.cs
+        │   ├── Domain/
+        │   │   ├── Inventory/
+        │   │   │   ├── InventoryItem.cs
+        │   │   │   ├── InventoryRepository.cs
+        │   │   │   └── StarRating.cs
+        │   │   ├── InventoryQuery/
+        │   │   │   ├── IInventoryQuery.cs
+        │   │   │   ├── AllInventoryQuery.cs
+        │   │   │   ├── InventoryQueryDecoratorBase.cs
+        │   │   │   ├── QueriedInventoryItem.cs
+        │   │   │   ├── Filters/
+        │   │   │   │   ├── AvailabilityFilterDecorator.cs
+        │   │   │   │   ├── NameContainsFilterDecorator.cs
+        │   │   │   │   ├── PriceRangeFilterDecorator.cs
+        │   │   │   │   └── StarRatingRangeFilterDecorator.cs
+        │   │   │   └── Sorts/
+        │   │   │       ├── SortByPriceDecorator.cs
+        │   │   │       ├── SortByStarRatingDecorator.cs
+        │   │   │       └── SortDirection.cs
+        │   │   └── Payment/
+        │   │       ├── IPaymentStrategy.cs
+        │   │       ├── PaymentStrategyBase.cs
+        │   │       ├── PaymentResult.cs
+        │   │       ├── CreditCardStrategy.cs
+        │   │       ├── ApplePayStrategy.cs
+        │   │       └── CryptoCurrencyStrategy.cs
+        │   └── UserInterface/
+        │       ├── Application.cs
+        │       ├── IUserPrompt.cs
+        │       ├── UserPrompt.cs
+        │       ├── PurchaseHandler.cs
+        │       ├── QueryBuilder/
+        │       │   ├── InventoryQueryBuilder.cs
+        │       │   ├── InventoryQueryOutput.cs
+        │       │   └── InventoryQueryOutputWriter.cs
+        │       └── PaymentBuilder/
+        │           ├── IPaymentBuilder.cs
+        │           ├── PaymentBuilderListFactory.cs
+        │           ├── CreditCardPaymentBuilder.cs
+        │           ├── ApplePayPaymentBuilder.cs
+        │           └── CryptoCurrencyPaymentBuilder.cs
+        └── TeaShop.UnitTest/
+            ├── TeaShop.UnitTest.csproj
+            ├── Domain/
+            │   ├── Inventory/
+            │   │   ├── StarRatingTests.cs
+            │   │   ├── InventoryItemTests.cs
+            │   │   └── InventoryRepositoryTests.cs
+            │   ├── InventoryQuery/
+            │   │   └── QueryTests.cs
+            │   └── Payment/
+            │       └── PaymentStrategyTests.cs
+            └── UserInterface/
+                ├── Fakes/
+                │   └── FakeUserPrompt.cs
+                └── InventoryQueryBuilderTests.cs
 ```
 
 ## UML Class Diagram
