@@ -15,7 +15,7 @@ The app walks you through a search-and-purchase loop. You set filters (name, ava
 The given solution had payment strategies write directly to a ``TextWriter``
 
 ```csharp 
-// Professor's approach
+// Reference solution approach
 void Checkout(InventoryItem item, int quantity, TextWriter output)
 ```
 
