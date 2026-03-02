@@ -54,7 +54,7 @@ The base class owns the checkout algorithm by computing total via ``item.PriceFo
 
 Each payment strategy masks sensitive data structurally. ``CreditCardStrategy.GetMaskedIdentifier()`` returns ``_creditCardNumber[^4..]``. This method cannot return the full number. The UI displays ``ending in [3456]`` without ever having access to the complete card number.
 
-#### PriceFor on the Entity
+#### Pricing Logic Lives Where The Data Lives
 
 Pricing logic lives on ``InventoryItem.PriceFor(quantity)`` with a guard clause that rejects non-positive quantities. This gives a single source of truth so that if pricing rules ever change (bulk discounts, rounding), there's only one place to update instead of hunting for ``price * quantity`` scattered across the codebase.
 
