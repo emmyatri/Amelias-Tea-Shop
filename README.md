@@ -105,6 +105,7 @@ The test suite includes 41 tests across 7 files covering domain logic (StarRatin
 
 ## Project Structure
 
+```
 Amelias-Tea-Shop/
 ├── README.md
 ├── screenshot.png
@@ -174,6 +175,7 @@ Amelias-Tea-Shop/
 ├── Fakes/
 │   └── FakeUserPrompt.cs
 └── InventoryQueryBuilderTests.cs
+```
 
 ## UML Class Diagram
 
