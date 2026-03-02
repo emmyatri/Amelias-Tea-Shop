@@ -182,6 +182,15 @@ Amelias-Tea-Shop/
 
 See [Class Diagram](tea-shop-class-diagram.md) for full UML
 
+## AI Acknowledgements
+
+- **UML Class Diagram:** Generated with assistance from Claude (Anthropic)
+- **Unit Test Suite:** Developed with guidance from Claude for test structure, naming conventions, and xUnit best practices
+- **Inventory Data:** Tea names and pricing generated with Claude Opus 4.5
+- **Code Review:** Architectural feedback on design decisions including PaymentResult, IUserPrompt, and PurchaseHandler extraction
+
+All source code was written and understood by the student. Claude was used as a learning and review tool, not as a code generator.
+
 ## Built With
 
 - C# / .NET 10
