@@ -2,6 +2,7 @@
 
 A console-based tea shop application built in C# (.NET 10) that allows users to search, filter, sort, and purchase from an inventory of authentic teas. Built to demonstrate intentional use of object-oriented design patterns and SOLID principles.
 
+![Tea Shop Screenshot](screenshot.png)
 
 ## How It Works
 
